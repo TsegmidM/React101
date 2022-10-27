@@ -84,47 +84,7 @@ img{
   color: #717171;
 }
 
-/* PROFILE CARD STYLING   STARTS FROM HERE*/
-.profile-card{
-  width: 40vh;
-  height: 15vh;
-  background-color:#717171;
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-}
-.p-card-icon{
-  width: 20%;
-  height: 50%;
-  background-color:violet;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-weight: 500;
-  font-size:x-large;
-  color: white;
-}
-.p-card-info{
-  height: 100%;
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: 20px;
-  justify-content: center;
-}
-.p-card-info .pname {
-  color: white;
-  font-size: larger;
-  font-weight: 650;
-}
-.p-card-info .title {
-  color:darkgrey;
-  font-size: large;
-}
-/* PROFILE CARD STYLING ENDS HERE */
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

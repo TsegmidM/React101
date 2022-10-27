@@ -26,9 +26,9 @@ function App() {
       {/* <StatusPicker/> */}
       {/* <LanguagePicker/> */}
       {/* <Name/> */}
-      {/* <ProfileInf o/> */}
-      {/* <Star/> */}
-      <DestructingJson/>
+      {/* <ProfileInfo/> */}
+      <Star/>
+      {/* <DestructingJson/> */}
     </div>
   );
 }
