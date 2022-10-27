@@ -1,23 +1,28 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 const DestructingJson = () => {
   const [data, setData] = useState(sampleData);
-    return(
-        <div>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-            <button  onClick={()=>{
-              
-//              <pre>{JSON.stringify(sampleData, null, 2)}</pre>   
-            }}>Change the name</button>
-            <button  onClick={()=>{
+  return (
+    <div>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <button onClick={() => {
+        const updatedData = { ...data, name: 'Dave' }
+        // const {additionalData: {favoriteHobbies:['sleeping']}}  = sampleData;
+        
+        setData(updatedData)
+        return <pre> {JSON.stringify(data, null, 2)}</pre>
+      }}>Change the name</button>
 
-            }}>Add another hobby</button>
-            <button  onClick={()=>{
+      <button onClick={() => {
+        // setData(updatedData)
+        return <pre> {JSON.stringify(data, null, 2)}</pre>
+      }}>Add another hobby</button>
+      <button onClick={() => {
 
-            }}>Include noodle</button>
-            
-        </div>
-    )
+      }}>Include noodle</button>
+
+    </div>
+  )
 
 }
 
