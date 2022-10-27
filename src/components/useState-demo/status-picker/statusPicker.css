@@ -1,0 +1,16 @@
+.status-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.active {
+  color: green;
+}
+.offline {
+  color: #999;
+}
+.away {
+  color: orange;
+}
+.busy {
+  color: red;
+}
