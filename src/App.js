@@ -13,6 +13,8 @@ import Name from "./components/props-demo/name-field";
 import ProfileInfo from "./components/props-demo/profile-card/profile-info";
 import Star from "./components/props-demo/star-rating/star";
 import DestructingJson from "./components/destructuringJson/destructuringJson";
+import TicTacToe from "./components/tictactoe/tictactoe";
+import MemoryGame from "./components/memory-game";
 
 function App() {
   return (
@@ -27,8 +29,10 @@ function App() {
       {/* <LanguagePicker/> */}
       {/* <Name/> */}
       {/* <ProfileInfo/> */}
-      <Star/>
-      {/* <DestructingJson/> */}
+      {/* <Star/> */}
+      <DestructingJson/>
+      {/* <TicTacToe/> */}
+      {/* <MemoryGame/> */}
     </div>
   );
 }

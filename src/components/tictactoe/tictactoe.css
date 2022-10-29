@@ -1,0 +1,11 @@
+.container{
+    width: 50vh;
+    height: 50vh;
+    background-color: grey;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+.tictactoe-btn{
+    /* border: 1px solid red; */
+   /* // width: 100%; */
+}

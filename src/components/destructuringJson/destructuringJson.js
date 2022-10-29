@@ -2,29 +2,115 @@ import React, { useState } from "react";
 
 const DestructingJson = () => {
   const [data, setData] = useState(sampleData);
+
   return (
     <div>
       <pre>{JSON.stringify(data, null, 2)}</pre>
-      <button onClick={() => {
-        const updatedData = { ...data, name: 'Dave' }
-        // const {additionalData: {favoriteHobbies:['sleeping']}}  = sampleData;
-        
-        setData(updatedData)
-        return <pre> {JSON.stringify(data, null, 2)}</pre>
-      }}>Change the name</button>
+      <button
+        onClick={() => {
+          setData((currState) => ({
+            ...currState,
+            name: "Ziggy",
+          }));
+        }}
+      >
+        Change the name
+      </button>
 
-      <button onClick={() => {
-        // setData(updatedData)
-        return <pre> {JSON.stringify(data, null, 2)}</pre>
-      }}>Add another hobby</button>
-      <button onClick={() => {
-
-      }}>Include noodle</button>
-
+      <button
+        onClick={() => {
+          setData((prevState) => ({
+            ...prevState,
+            additionalData: {
+              ...prevState.additionalData,
+              favoriteHobbies: [
+                ...prevState.additionalData.favoriteHobbies,
+                "Cooking",
+              ],
+            },
+          }));
+        }}
+      >
+        Add another hobby
+      </button>
+      
+      <button
+        onClick={() => {
+          setData((prevState) => ({
+            ...prevState,
+            additionalData: {
+              ...prevState.additionalData,
+              favoriteFood: {
+                ...prevState.additionalData.favoriteFood,
+                includeNoodle:false
+              },
+            },
+          }));
+        }}
+      >
+        No Noodle
+      </button>
+      <button
+        onClick={() => {
+          setData((prevState) => ({
+            ...prevState,
+            additionalData: {
+             ...prevState.additionalData,
+              moreDetails: {
+                ...prevState.additionalData.moreDetails,
+                hometown: {
+                  ...prevState.additionalData.moreDetails.hometown,
+                  state: "IL",
+                },
+              },
+            },
+          }));
+        }}
+      >
+        Change Hometown
+      </button>
+      <button
+        onClick={() => {
+          setData((prevState) =>  ({
+            ...prevState,
+            additionalData: {
+              ...prevState.additionalData,
+              moreDetails: {
+                ...prevState.additionalData.moreDetails,
+                citiesLivedIn:[
+                   ...prevState.additionalData.moreDetails.citiesLivedIn.filter(city => city !== 'Ulaanbaatar')
+                ],
+              },
+            },
+          })  );
+        }}
+      >
+        Remove Ulaanbaatar
+     </button>
+     <button
+        onClick={() => {
+          setData((prevState) => ({
+            ...prevState,
+            additionalData: {
+              ...prevState.additionalData,
+              moreDetails: {
+                ...prevState.additionalData.moreDetails,
+                citiesLivedIn: [
+                  ...prevState.additionalData.moreDetails.citiesLivedIn,
+                   "Schaumburg",
+                ],
+              },
+            },
+          }));
+        }}
+      >
+        Add Schaumburg
+      </button>
+      
+      
     </div>
-  )
-
-}
+  );
+};
 
 const sampleData = {
   name: "John",
