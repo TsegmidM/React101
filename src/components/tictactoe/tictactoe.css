@@ -1,11 +1,39 @@
-.container{
-    width: 50vh;
-    height: 50vh;
-    background-color: grey;
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
+.ttt-container {
+    width: 260px;
+    height: 260px;
 }
-.tictactoe-btn{
-    /* border: 1px solid red; */
-   /* // width: 100%; */
+
+.board {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: black;
+    grid-area: center;
+}
+
+.cell {
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 650;
+    font-size: x-large;
+}
+
+.status {
+    font-size: x-large;
+    font-weight: 650;
+    color: red;
+    margin-bottom: 10px;
+}
+
+.ttt-button {
+    cursor: pointer;
+    color: red;
+    font-size: large;
+    font-weight: 550;
+    margin-top: 10px;
 }
