@@ -5,7 +5,7 @@ import { MdCancel, MdDelete, MdSend } from "react-icons/md";
 
 export default function ToDoListV3() {
   // create a state that saves the todo items
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState({ original: [], filtered: [] });
 
   // create a state that saves the value of the input field
   const [inputField, setInputField] = useState("");
@@ -16,52 +16,113 @@ export default function ToDoListV3() {
   //adding a search state
   const [searchInput, setSearchInput] = useState("");
 
-  //adding state that will who todos if its complete or imcomplete
-  const [isIncomplete, setIsIncomplete] = useState(0);
+  const [checkTodoStatus, setCheckTodoStatus] = useState(-1);
 
   // create a function that changes the "isCompleted" status
-  const isCompleted = (todoIdx) => {
+  const isCompleted = (todoId) => {
     setTodoList((currState) => {
-      return currState.map((currTodo, currTodoIdx) => {
-        return currTodoIdx === todoIdx
-          ? {
-              ...currTodo,
-              isCompleted: !currTodo.isCompleted,
-            }
-          : currTodo;
-      });
+      return {
+        ...currState,
+        original:
+          currState.original.map((currTodo, currTodoIdx) => {
+            return currTodo.todoId === todoId
+              ? {
+                ...currTodo,
+                isCompleted: !currTodo.isCompleted,
+              }
+              : currTodo;
+          }),
+        filtered:
+          currState.original.map((currTodo, currTodoIdx) => {
+            return currTodo.todoId === todoId
+              ? {
+                ...currTodo,
+                isCompleted: !currTodo.isCompleted,
+              }
+              : currTodo;
+          }
+
+          )
+      }
     });
     console.log("isCompleted function called");
     console.log(todoList);
   };
+
+  //function that will who all todos
+  const showAllTodos = () => {
+    setTodoList((currState) =>
+    ({
+      ...currState,
+      filtered:
+        currState.original
+    }));
+  }
+  //function that will filter incomplete todos
+  const showInCompleteTodos = () => {
+    setTodoList((currState) =>
+    ({
+      ...currState,
+      filtered:
+        currState.original.filter((v) => (!v.isCompleted))
+    }));
+  }
+  //function that will filter completed todos
+  const showCompletedTodos = () => {
+    setTodoList((currState) =>
+    ({
+      ...currState,
+      filtered:
+        currState.original.filter((v) => (v.isCompleted))
+    }));
+  }
+
   // create a function that deletes the item from the list (i.e. update the todo items state)
-  const deleteItem = (todoIdx) => {
-    setTodoList((currState) => currState.filter((v, i) => i !== todoIdx));
+  const deleteItem = (todoId) => {
+    setTodoList((currState) => ({
+      ...currState,
+      original:
+        currState.original.filter((v) => v.todoId !== todoId),
+      filtered:
+        currState.original.filter((v) => v.todoId !== todoId),
+    }));
     console.log("delete function called");
     console.log(todoList);
   };
   // create an edit function - better to do it at the end
-  const editItem = (todoIdx) => {
-    setInputField(todoList[todoIdx].toDo);
-    setEditItemIdx(todoIdx);
+  const editItem = (todoId) => {
+   // setInputField(todoList.original[todoIdx].toDo);
+   let temp = todoList.original.filter((v) => v.todoId === todoId)
+   setInputField(temp[0].toDo);
+   //setInputField(todoList.original[todoIdx].toDo);
+
+    setEditItemIdx(todoId);
     // deleteItem(todoIdx);
     console.log("edit function called");
+   
   };
-  const onSearchInput = (e) =>{
+  const onSearchInput = (e) => {
     setSearchInput(e.target.value);
-    let temp = [...todoList];
-     setTodoList((currState) => currState.filter((v) => (v.toDo).includes(e.target.value)));
+    setTodoList((currState) =>
+    ({
+      ...currState,
+      filtered:
+        currState.original.filter((v) => (v.toDo).includes(e.target.value))
+    }));
+    console.log(todoList)
   }
-  const onInputChange = (e)=> {
+  const onInputChange = (e) => {
     setInputField(e.target.value);
   }
-  const saveToLocalStorage = () =>{
-    localStorage.setItem('list',JSON.stringify(todoList))
+  const saveToLocalStorage = () => {
+    localStorage.setItem('list', JSON.stringify(todoList))
   }
   const readFromLocalStorage = () => {
     let savedLocalStorage = localStorage.getItem('list');
-    setTodoList(JSON.parse(savedLocalStorage  ))
+    setTodoList(JSON.parse(savedLocalStorage))
   }
+
+
   // create a submit function, that takes the input field value and add it to the todo items state
   const onListSubmit = (e) => {
     e.preventDefault();
@@ -72,23 +133,49 @@ export default function ToDoListV3() {
     } else {
       if (editItemIdx !== -1) {
         setTodoList((currState) => {
-          return currState.map((todo, todoIdx) => {
-            return editItemIdx === todoIdx
-              ? { ...todo, toDo: inputField.trim() }
-              : todo;
-          });
+          return ({
+            ...currState,
+            original:
+              currState.original.map((todo, todoIdx) => {
+                return editItemIdx === todo.todoId
+                  ? { ...todo, toDo: inputField.trim() }
+                  : todo;
+              }),
+            filtered:
+              currState.original.map((todo, todoIdx) => {
+                return editItemIdx === todo.todoId
+                  ? { ...todo, toDo: inputField.trim() }
+                  : todo;
+              })
+
+          })
         });
         setEditItemIdx(-1);
       } else {
-        setTodoList((currState) => [
+        setTodoList((currState) => ({
           ...currState,
-          {
-            toDo: inputField.trim(),
-            author: "Ziggy",
-            time: new Date().toString().slice(0, 25),
-            isCompleted: false,
-          },
-        ]);
+          original: [
+            ...currState.original,
+            {
+              todoId: currState.original.length + 1,
+              toDo: inputField.trim(),
+              author: "Ziggy",
+              time: new Date().toString().slice(0, 25),
+              isCompleted: false,
+            },
+          ],
+          filtered: [
+            ...currState.original,
+            {
+              todoId: currState.original.length + 1,
+              toDo: inputField.trim(),
+              author: "Ziggy",
+              time: new Date().toString().slice(0, 25),
+              isCompleted: false,
+            },
+          ]
+
+        }));
       }
     }
     setInputField("");
@@ -116,7 +203,7 @@ export default function ToDoListV3() {
             className="submit-button"
             type="submit"
             onClick={() => {
-              todoList.map((todo, todoIdx) => {});
+              // todoList.map((todo, todoIdx) => { });
             }}
           >
             {editItemIdx !== -1 ? <FaRegSave /> : <MdSend />}
@@ -126,11 +213,11 @@ export default function ToDoListV3() {
       {/** list of to do items container */}
       <div className="todo-bottom">
         <h3>TheTodos:</h3>
-        <button 
-        onClick={saveToLocalStorage}>Save to localStorage</button>
         <button
-        onClick={readFromLocalStorage}>Read from localStorage</button>
-        <br/>
+          onClick={saveToLocalStorage}>Save to localStorage</button>
+        <button
+          onClick={readFromLocalStorage}>Read from localStorage</button>
+        <br />
         <div className="search-section">
           <button className="search-button">
             <FaSearch />
@@ -143,30 +230,30 @@ export default function ToDoListV3() {
             onChange={onSearchInput} // should update the state
           ></input>
         </div>
-        <div>
-          <button
-          onClick={() => {
-            setIsIncomplete(0);
-            console.log(isIncomplete);
-          }}>All</button>
-          <button
+        <div className="check-todo-buttons">
+          <button className = {checkTodoStatus === -1  ? "active-todos" : "nonactive-todos"}
             onClick={() => {
-              setTodoList((currState) => currState.filter((v) => !v.isCompleted));
-              console.log(isIncomplete);
+              showAllTodos();
+              setCheckTodoStatus(-1);
+            }}>All</button>
+          <button className = {checkTodoStatus === 0  ? "active-todos" : "nonactive-todos"}
+            onClick={() => {
+              showInCompleteTodos();
+              setCheckTodoStatus(0);
             }}
           >
             Incomplete
           </button >
-          <button
-          onClick={() => {
-           // setTodoList((currState) => currState.filter((v) => !v.isCompleted));
-            console.log(isIncomplete);
-          }}>Complete</button>
+          <button className = {checkTodoStatus === 1  ? "active-todos" : "nonactive-todos"}
+            onClick={() => {
+              showCompletedTodos();
+              setCheckTodoStatus(1);
+            }}>Completed</button>
         </div>
         {/** todo items rendering */}
-        
-                
-         { isIncomplete===0 && todoList.map((todo, todoIdx) => { 
+
+
+        {todoList.filtered.map((todo, todoIdx) => {
           return (
             <div key={todoIdx} className="todo-list">
               {/** style the todo item */}
@@ -184,25 +271,25 @@ export default function ToDoListV3() {
                 <div>Author: {todo.author}</div>
                 <div>Date: {todo.time}</div>
               </div>
-              {editItemIdx !== todoIdx ? (
+              {editItemIdx !== todo.todoId ? (
                 <div className="todo-list-button">
                   <button
                     className={
                       todo.isCompleted ? "todo-buttons" : "notcompleted"
                     }
-                    onClick={() => isCompleted(todoIdx)}
+                    onClick={() => isCompleted(todo.todoId)}
                   >
                     <FaRegCheckCircle />
                   </button>
                   <button
                     className="todo-buttons"
-                    onClick={() => editItem(todoIdx)}
+                    onClick={() => editItem(todo.todoId)}
                   >
                     <FaEdit />
                   </button>
                   <button
                     className="todo-buttons"
-                    onClick={() => deleteItem(todoIdx)}
+                    onClick={() => deleteItem(todo.todoId)}
                   >
                     <MdDelete />
                   </button>
@@ -221,9 +308,12 @@ export default function ToDoListV3() {
                 </div>
               )}
             </div>
+
           );
         })}
+
       </div>
+
     </div>
   );
 }
