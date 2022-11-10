@@ -1,0 +1,50 @@
+.image-slider {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.button-container {
+    position: absolute;
+    display: flex;
+    top: 50%;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.slide-button {
+    margin: 0px 10px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    background-color: white;
+    font-size: large;
+}
+
+.slide-button:hover {
+    background-color: silver;
+}
+.circle-button-container{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    bottom: 3%;
+    width: 100%;
+}
+.circle-button{
+    margin: 0px 2px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid white;
+    background-color: white;
+}
+.circle-button-default{
+    margin: 0px 2px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid white;
+    background-color: transparent;
+}
