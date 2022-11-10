@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./index.css";
 import { FaEdit, FaRegCheckCircle, FaRegSave, FaSearch } from "react-icons/fa";
 import { MdCancel, MdDelete, MdSend } from "react-icons/md";
 
 export default function ToDoListV3() {
   // create a state that saves the todo items
-  const [todoList, setTodoList] = useState({ original: [], filtered: [] });
+  //const [todoList, setTodoList] = useState({ original: [], filtered: [] });
+
+
+  const [todoList, setTodoList] = useState(localStorage.getItem('list')
+  ? JSON.parse(localStorage.getItem('list'))
+  : {original: [], filtered: []});
 
   // create a state that saves the value of the input field
   const [inputField, setInputField] = useState("");
@@ -16,34 +21,57 @@ export default function ToDoListV3() {
   //adding a search state
   const [searchInput, setSearchInput] = useState("");
 
+  //checking if completed or not
   const [checkTodoStatus, setCheckTodoStatus] = useState(-1);
+
+  //read from localStorage
+  // useEffect(()=>{
+  //   let savedLocalStorage = localStorage.getItem("list");
+  //   if(savedLocalStorage){
+  //     setTodoList(JSON.parse(savedLocalStorage));
+  //   } else {
+  //    localStorage.setItem('list', [])
+  //   }
+
+  // },[])
+
+  //add to localStorage
+  useEffect(()=>{
+    localStorage.setItem("list", JSON.stringify(todoList));
+  },[todoList])
+
+  useEffect(()=>{
+    if(checkTodoStatus===-1)
+    showAllTodos();
+    else if(checkTodoStatus===0)
+    showInCompleteTodos();
+    else
+    showCompletedTodos();
+  },
+  [todoList.original ])
 
   // create a function that changes the "isCompleted" status
   const isCompleted = (todoId) => {
-    setTodoList((currState) => {
+    setTodoList((currState) => { 
       return {
         ...currState,
-        original:
-          currState.original.map((currTodo, currTodoIdx) => {
-            return currTodo.todoId === todoId
-              ? {
+        original: currState.original.map((currTodo, currTodoIdx) => {
+          return currTodo.todoId === todoId
+            ? {
                 ...currTodo,
                 isCompleted: !currTodo.isCompleted,
               }
-              : currTodo;
-          }),
-        filtered:
-          currState.original.map((currTodo, currTodoIdx) => {
-            return currTodo.todoId === todoId
-              ? {
+            : currTodo;
+        }),
+        filtered: currState.original.map((currTodo, currTodoIdx) => {
+          return currTodo.todoId === todoId
+            ? {
                 ...currTodo,
                 isCompleted: !currTodo.isCompleted,
               }
-              : currTodo;
-          }
-
-          )
-      }
+            : currTodo;
+        }),
+      };
     });
     console.log("isCompleted function called");
     console.log(todoList);
@@ -51,77 +79,67 @@ export default function ToDoListV3() {
 
   //function that will who all todos
   const showAllTodos = () => {
-    setTodoList((currState) =>
-    ({
+    setTodoList((currState) => ({
       ...currState,
-      filtered:
-        currState.original
+      filtered: currState.original,
     }));
-  }
+  };
   //function that will filter incomplete todos
   const showInCompleteTodos = () => {
-    setTodoList((currState) =>
-    ({
+    setTodoList((currState) => ({
       ...currState,
-      filtered:
-        currState.original.filter((v) => (!v.isCompleted))
+      filtered: currState.original.filter((v) => !v.isCompleted),
     }));
-  }
+  };
   //function that will filter completed todos
   const showCompletedTodos = () => {
-    setTodoList((currState) =>
-    ({
+    setTodoList((currState) => ({
       ...currState,
-      filtered:
-        currState.original.filter((v) => (v.isCompleted))
+      filtered: currState.original.filter((v) => v.isCompleted),
     }));
-  }
+  };
 
   // create a function that deletes the item from the list (i.e. update the todo items state)
   const deleteItem = (todoId) => {
     setTodoList((currState) => ({
       ...currState,
-      original:
-        currState.original.filter((v) => v.todoId !== todoId),
-      filtered:
-        currState.original.filter((v) => v.todoId !== todoId),
+      original: currState.original.filter((v) => v.todoId !== todoId),
+      filtered: currState.original.filter((v) => v.todoId !== todoId),
     }));
     console.log("delete function called");
     console.log(todoList);
   };
   // create an edit function - better to do it at the end
   const editItem = (todoId) => {
-   // setInputField(todoList.original[todoIdx].toDo);
-   let temp = todoList.original.filter((v) => v.todoId === todoId)
-   setInputField(temp[0].toDo);
-   //setInputField(todoList.original[todoIdx].toDo);
+    // setInputField(todoList.original[todoIdx].toDo);
+    let temp = todoList.original.filter((v) => v.todoId === todoId);
+    setInputField(temp[0].toDo);
+    //setInputField(todoList.original[todoIdx].toDo);
 
     setEditItemIdx(todoId);
     // deleteItem(todoIdx);
     console.log("edit function called");
-   
   };
   const onSearchInput = (e) => {
     setSearchInput(e.target.value);
-    setTodoList((currState) =>
-    ({
+    setTodoList((currState) => ({
       ...currState,
-      filtered:
-        currState.original.filter((v) => (v.toDo).includes(e.target.value))
+      filtered: currState.original.filter((v) =>
+        v.toDo.includes(e.target.value)
+      ),
     }));
-    console.log(todoList)
-  }
+    console.log(todoList);
+  };
   const onInputChange = (e) => {
     setInputField(e.target.value);
-  }
-  const saveToLocalStorage = () => {
-    localStorage.setItem('list', JSON.stringify(todoList))
-  }
-  const readFromLocalStorage = () => {
-    let savedLocalStorage = localStorage.getItem('list');
-    setTodoList(JSON.parse(savedLocalStorage))
-  }
-
+  };
+  // const saveToLocalStorage = () => {
+  //   localStorage.setItem("list", JSON.stringify(todoList));
+  // };
+  // const readFromLocalStorage = () => {
+  //   let savedLocalStorage = localStorage.getItem("list");
+  //   setTodoList(JSON.parse(savedLocalStorage));
+  // };
 
   // create a submit function, that takes the input field value and add it to the todo items state
   const onListSubmit = (e) => {
@@ -133,22 +151,19 @@ export default function ToDoListV3() {
     } else {
       if (editItemIdx !== -1) {
         setTodoList((currState) => {
-          return ({
+          return {
             ...currState,
-            original:
-              currState.original.map((todo, todoIdx) => {
-                return editItemIdx === todo.todoId
-                  ? { ...todo, toDo: inputField.trim() }
-                  : todo;
-              }),
-            filtered:
-              currState.original.map((todo, todoIdx) => {
-                return editItemIdx === todo.todoId
-                  ? { ...todo, toDo: inputField.trim() }
-                  : todo;
-              })
-
-          })
+            original: currState.original.map((todo, todoIdx) => {
+              return editItemIdx === todo.todoId
+                ? { ...todo, toDo: inputField.trim() }
+                : todo;
+            }),
+            filtered: currState.original.map((todo, todoIdx) => {
+              return editItemIdx === todo.todoId
+                ? { ...todo, toDo: inputField.trim() }
+                : todo;
+            }),
+          };
         });
         setEditItemIdx(-1);
       } else {
@@ -173,8 +188,7 @@ export default function ToDoListV3() {
               time: new Date().toString().slice(0, 25),
               isCompleted: false,
             },
-          ]
-
+          ],
         }));
       }
     }
@@ -213,11 +227,9 @@ export default function ToDoListV3() {
       {/** list of to do items container */}
       <div className="todo-bottom">
         <h3>TheTodos:</h3>
-        <button
-          onClick={saveToLocalStorage}>Save to localStorage</button>
-        <button
-          onClick={readFromLocalStorage}>Read from localStorage</button>
-        <br />
+        {/* <button onClick={saveToLocalStorage}>Save to localStorage</button> */}
+        {/* <button onClick={readFromLocalStorage}>Read from localStorage</button> */}
+        {/* <br /> */}
         <div className="search-section">
           <button className="search-button">
             <FaSearch />
@@ -231,29 +243,43 @@ export default function ToDoListV3() {
           ></input>
         </div>
         <div className="check-todo-buttons">
-          <button className = {checkTodoStatus === -1  ? "active-todos" : "nonactive-todos"}
+          <button
+            className={
+              checkTodoStatus === -1 ? "active-todos" : "nonactive-todos"
+            }
             onClick={() => {
               showAllTodos();
               setCheckTodoStatus(-1);
-            }}>All</button>
-          <button className = {checkTodoStatus === 0  ? "active-todos" : "nonactive-todos"}
+            }}
+          >
+            All
+          </button>
+          <button
+            className={
+              checkTodoStatus === 0 ? "active-todos" : "nonactive-todos"
+            }
             onClick={() => {
               showInCompleteTodos();
               setCheckTodoStatus(0);
             }}
           >
             Incomplete
-          </button >
-          <button className = {checkTodoStatus === 1  ? "active-todos" : "nonactive-todos"}
+          </button>
+          <button
+            className={
+              checkTodoStatus === 1 ? "active-todos" : "nonactive-todos"
+            }
             onClick={() => {
               showCompletedTodos();
               setCheckTodoStatus(1);
-            }}>Completed</button>
+            }}
+          >
+            Completed
+          </button>
         </div>
         {/** todo items rendering */}
 
-
-        {todoList.filtered.map((todo, todoIdx) => {
+        { todoList.filtered.map((todo, todoIdx) => {
           return (
             <div key={todoIdx} className="todo-list">
               {/** style the todo item */}
@@ -308,12 +334,9 @@ export default function ToDoListV3() {
                 </div>
               )}
             </div>
-
           );
         })}
-
       </div>
-
     </div>
   );
 }
