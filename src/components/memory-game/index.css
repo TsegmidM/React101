@@ -1,18 +1,35 @@
-.container {
-    width: 65vh;
-    height: 65vh;
+.memory-game-container{
+    display: flex;
+    flex-direction: column;
+  
+}
+.section2{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+h2{
+    margin-right: 15px;
+}
+.memory-game-board {
+    width: 600px;
+    height: 600px;
     display: grid;
     grid-template-columns:repeat(4, 1fr);
     grid-template-rows:repeat(4, 1fr); 
     align-items: center;
 }
-.square {
-    border: 1px solid, red;
+.memory-cell{
+    border: 1px solid black;
     /* background-color: aliceblue; */
-    height: 100%;
-    width: 100%;
+    height: 140px;
+    width: 140px;
     display: flex;
     /* text-align: center; */
     justify-content: center;
     align-items: center;
+    font-size:xx-large;
+}
+.memory-cell:hover{
+    background-color: silver;
 }
