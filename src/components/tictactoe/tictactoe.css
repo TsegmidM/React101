@@ -1,9 +1,10 @@
 .ttt-container {
     width: 260px;
     height: 260px;
+    text-align: center;
 }
 
-.board {
+.ttt-board {
     width: 260px;
     height: 260px;
     display: grid;
@@ -13,7 +14,7 @@
     grid-area: center;
 }
 
-.cell {
+.ttt-cell {
     width: 85px;
     height: 85px;
     background-color: white;
@@ -25,7 +26,7 @@
     font-size: x-large;
 }
 
-.status {
+.ttt-status {
     font-size: x-large;
     font-weight: 650;
     color: red;

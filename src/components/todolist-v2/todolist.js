@@ -7,10 +7,11 @@ export default function ToDoListV3() {
   // create a state that saves the todo items
   //const [todoList, setTodoList] = useState({ original: [], filtered: [] });
 
-
-  const [todoList, setTodoList] = useState(localStorage.getItem('list')
-  ? JSON.parse(localStorage.getItem('list'))
-  : {original: [], filtered: []});
+  const [todoList, setTodoList] = useState(
+    localStorage.getItem("list")
+      ? JSON.parse(localStorage.getItem("list"))
+      : { original: [], filtered: [] }
+  );
 
   // create a state that saves the value of the input field
   const [inputField, setInputField] = useState("");
@@ -24,35 +25,26 @@ export default function ToDoListV3() {
   //checking if completed or not
   const [checkTodoStatus, setCheckTodoStatus] = useState(-1);
 
-  //read from localStorage
-  // useEffect(()=>{
-  //   let savedLocalStorage = localStorage.getItem("list");
-  //   if(savedLocalStorage){
-  //     setTodoList(JSON.parse(savedLocalStorage));
-  //   } else {
-  //    localStorage.setItem('list', [])
-  //   }
-
-  // },[])
-
   //add to localStorage
-  useEffect(()=>{
+  useEffect(() => {
     localStorage.setItem("list", JSON.stringify(todoList));
-  },[todoList])
+  }, [todoList]);
 
-  useEffect(()=>{
-    if(checkTodoStatus===-1)
-    showAllTodos();
-    else if(checkTodoStatus===0)
-    showInCompleteTodos();
-    else
-    showCompletedTodos();
-  },
-  [todoList.original ])
+  // useEffect(()=>{
+
+  //   if(checkTodoStatus===-1)
+  //   showAllTodos();
+  //   else if(checkTodoStatus===0)
+  //   showInCompleteTodos();
+  //   else
+  //   showCompletedTodos();
+
+  // },
+  // [checkTodoStatus])
 
   // create a function that changes the "isCompleted" status
   const isCompleted = (todoId) => {
-    setTodoList((currState) => { 
+    setTodoList((currState) => {
       return {
         ...currState,
         original: currState.original.map((currTodo, currTodoIdx) => {
@@ -63,14 +55,17 @@ export default function ToDoListV3() {
               }
             : currTodo;
         }),
-        filtered: currState.original.map((currTodo, currTodoIdx) => {
+        filtered: checkTodoStatus!==-1 ? currState.filtered.filter(
+          (currTodo) => currTodo.todoId !== todoId
+        )
+        : currState.original.map((currTodo, currTodoIdx) => {
           return currTodo.todoId === todoId
             ? {
-                ...currTodo,
-                isCompleted: !currTodo.isCompleted,
-              }
+              ...currTodo,
+              isCompleted: !currTodo.isCompleted,
+            }
             : currTodo;
-        }),
+          })
       };
     });
     console.log("isCompleted function called");
@@ -104,7 +99,7 @@ export default function ToDoListV3() {
     setTodoList((currState) => ({
       ...currState,
       original: currState.original.filter((v) => v.todoId !== todoId),
-      filtered: currState.original.filter((v) => v.todoId !== todoId),
+      filtered: currState.filtered.filter((v) => v.todoId !== todoId),
     }));
     console.log("delete function called");
     console.log(todoList);
@@ -122,10 +117,13 @@ export default function ToDoListV3() {
   };
   const onSearchInput = (e) => {
     setSearchInput(e.target.value);
+    
     setTodoList((currState) => ({
       ...currState,
       filtered: currState.original.filter((v) =>
-        v.toDo.includes(e.target.value)
+      checkTodoStatus===1 ? v.isCompleted && v.toDo.includes(e.target.value) : 
+      checkTodoStatus===0 ? !v.isCompleted && v.toDo.includes(e.target.value) : 
+      v.toDo.includes(e.target.value)
       ),
     }));
     console.log(todoList);
@@ -133,13 +131,6 @@ export default function ToDoListV3() {
   const onInputChange = (e) => {
     setInputField(e.target.value);
   };
-  // const saveToLocalStorage = () => {
-  //   localStorage.setItem("list", JSON.stringify(todoList));
-  // };
-  // const readFromLocalStorage = () => {
-  //   let savedLocalStorage = localStorage.getItem("list");
-  //   setTodoList(JSON.parse(savedLocalStorage));
-  // };
 
   // create a submit function, that takes the input field value and add it to the todo items state
   const onListSubmit = (e) => {
@@ -192,7 +183,7 @@ export default function ToDoListV3() {
         }));
       }
     }
-    setInputField("");
+    setInputField({});
     console.log("Submit button clicked");
     console.log(todoList);
   };
@@ -279,7 +270,7 @@ export default function ToDoListV3() {
         </div>
         {/** todo items rendering */}
 
-        { todoList.filtered.map((todo, todoIdx) => {
+        {todoList.filtered.map((todo, todoIdx) => {
           return (
             <div key={todoIdx} className="todo-list">
               {/** style the todo item */}

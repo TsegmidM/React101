@@ -1,0 +1,68 @@
+.airbnb-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 200px 30px 0 30px;
+}
+.airbnb-house-section {
+  display: flex;
+  flex-direction: column;
+  width: 310px;
+  height: 350px;
+  cursor: pointer;
+}
+.airbnb-house-img {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.airbnb-house-hover-button {
+  display: none;
+}
+.airbnb-house-button {
+  margin: 0px 10px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: none;
+}
+.airbnb-house-section:hover .airbnb-house-hover-button {
+  position: absolute;
+  display: flex;
+  top: 50%;
+  justify-content: space-between;
+  width: 100%;
+}
+.airbnb-house-button:hover {
+  background-color: burlywood;
+}
+
+.airbnb-img {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.airbnb-house-info {
+  margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  align-items: flex-start;
+}
+.airbnb-row-1 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.airbnb-location,
+.airbnb-price {
+  font-weight: 620;
+}
+.airbnb-price-span {
+  font-weight: 350;
+}
+.airbnb-distance,
+.airbnb-possibleDate {
+  color: #717171;
+}

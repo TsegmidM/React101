@@ -16,10 +16,10 @@ const ImageSlider = () => {
     return (
         <div>
             <div className="image-slider">
-                <img src={slides[activeIndex]}>
+                <img className="image-slider-img" src={slides[activeIndex]}>
                 </img>
-                <div className="button-container">
-                    <button className="slide-button"
+                <div className="image-slider-button-container">
+                    <button className="image-slider-slide-button"
                         onClick={() => {
                             if (activeIndex > 0)
                                 setActiveIndex((currState) => currState - 1);
@@ -27,7 +27,7 @@ const ImageSlider = () => {
                                 setActiveIndex(images.length - 1);
                             console.log(activeIndex)
                         }}>←</button>
-                    <button className="slide-button"
+                    <button className="image-slider-slide-button"
                         onClick={() => {
                             if (activeIndex < images.length - 1)
                                 setActiveIndex((currState) => currState + 1);
@@ -36,11 +36,11 @@ const ImageSlider = () => {
                             console.log(activeIndex)
                         }}>→</button>
                 </div>
-                <div className="circle-button-container">
+                <div className="image-slider-circle-button-container">
 
                     {images.map((img, idx) => {
                         return (
-                            <button className= {activeIndex >= idx ? "circle-button" : "circle-button-default"}
+                            <button className= {activeIndex == idx ? "image-slider-circle-button" : "image-slider-circle-button-default"}
                                 key={idx}
                                 onClick={() => {
                                     setActiveIndex(idx);

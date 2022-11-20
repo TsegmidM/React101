@@ -56,12 +56,12 @@ export default function TicTacToe2() {
 
   return (
     <div className="ttt-container">
-      <div className="status">{status}</div>
-      <div className="board">
+      <div className="ttt-status">{status}</div>
+      <div className="ttt-board">
         {[...Array(9)].map((cell, cellIdx) => {
           return (
             <div
-              className="cell"
+              className="ttt-cell"
               key={cellIdx}
               onClick={() => {
                 if (winner || boardData[cellIdx]) return;

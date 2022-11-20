@@ -1,7 +1,6 @@
 import React from "react";
-// import "./App.css";
 import Listing from "./listing";
-
+import "./index.css"
 const houseList = [
   {
     imgFile: "https://a0.muscache.com/im/pictures/bc8d77d4-e617-44ca-8b15-b8b2ce55df35.jpg?im_w=720",
@@ -39,7 +38,7 @@ const houseList = [
 
 const HouseListing = () => {
   return (
-    <div className="container">
+    <div className="airbnb-container">
       {houseList.map((house, houseIdx) => {
         return <Listing house={house} key={houseIdx} />;
       })}
