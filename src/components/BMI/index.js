@@ -8,9 +8,8 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer,
 } from "recharts";
-import "./index.css";
+import "./bmi-index.css";
 
 const BMITracker = () => {
   const [bmiData, setBmiData] = useState({
@@ -36,74 +35,76 @@ const BMITracker = () => {
     let bmiByMetric = (bmiData.weight / (bmiData.height / 100) ** 2).toFixed(1);
 
     setBmiIndex((currState) => {
-        return [
-            ...currState,
+      return [
+        ...currState,
         {
           BMI: byMetric ? bmiByMetric : bmiByLb,
           date: new Date().toString().slice(0, 10),
         },
-        ]
-  });
-  setBmiData({
-    height: "",
-    weight: "",
-  });
-    console.log(bmiIndex);
-    console.log("BMI by LB:", bmiByLb);
-    console.log("BMI by Metric:", bmiByMetric);
+      ]
+    });
+    setBmiData({
+      height: "",
+      weight: "",
+    });
+
   };
 
   return (
     <div className="bmi-tracker">
-      <div> BMI TRACKER {byMetric ? "by metric" : "by lbs"}</div>
-      {/* <div>BMI by lb is : {JSON.stringify(bmiIndex)}</div> */}
-      {/* <div>{bmiData}</div> */}
-      <button onClick={()=>{
-        SetByMetric(!byMetric);
-      }}> {byMetric ? "Change to Pound system" : "Change to Metric system" } </button>
-      <form className="bmi-form" onSubmit={onFormSubmit}>
-        <label className="bmi-label">
-          {byMetric ? "cm: " : "Inch: "}
-          <input
-            placeholder="Enter your height"
-            className="bmi-height"
-            name="height"
-            required
-            type="number"
-            value={bmiData.height} 
-            onChange={(e) => {
-              onInputChange(e);
-            }} 
-          />
-        </label>
-        <label className="bmi-label">
-        {byMetric ? "kg: " : "lb: "}
-          <input
-            placeholder="Enter your weight"
-            className="bmi-weight"
-            name="weight"
-            required
-            type="number"
-            value={bmiData.weight}
-            onChange={(e) => {
-              onInputChange(e);
-            }}
-          />
-          </label>
-        <button
-          className="bmi-submit-button"
-          type="submit"
-          onClick={()=>{
-           
-          }}
-        >
-          Calculate
-        </button>
-      </form>
+      <div className="bmi-buttons">
+        <button>{"<"}</button>
+        <button>{">"}</button>
+      </div>
+      <div className="bmi-form" >
+        <div> BMI TRACKER {byMetric ? "by metric" : "by lbs"}</div>
+        <button onClick={() => {
+          SetByMetric(!byMetric);
+        }}> {byMetric ? "Change to Pound system" : "Change to Metric system"} </button>
 
+        <form onSubmit={onFormSubmit}>
+
+          <label>
+            {byMetric ? "cm:" : "Inch: "}
+            <input
+              placeholder="Enter your height"
+              className="bmi-height"
+              name="height"
+              required
+              type="number"
+              value={bmiData.height}
+              onChange={(e) => {
+                onInputChange(e);
+              }}
+            />
+          </label>
+          <label>
+            {byMetric ? "     kg:" : "     lb: "}
+            <input
+              placeholder="Enter your weight"
+              className="bmi-weight"
+              name="weight"
+              required
+              type="number"
+              value={bmiData.weight}
+              onChange={(e) => {
+                onInputChange(e);
+              }}
+            />
+          </label>
+          <button
+            className="bmi-submit-button"
+            type="submit"
+            onClick={() => {
+
+            }}
+          >
+            Calculate
+          </button>
+        </form>
+      </div>
       <LineChart
-      className="LineChart"
-        width={700}
+        width={800}
         height={300}
         data={bmiIndex.slice(-7)}
         margin={{
@@ -112,20 +113,23 @@ const BMITracker = () => {
           left: 0,
           bottom: 5,
         }}
+
       >
+
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
-        dataKey= "date"
+          dataKey="date"
         />
-        <YAxis 
-       dataKey="BMI"/>
+        <YAxis
+          dataKey="BMI" />
         <Tooltip />
         <Legend />
         <Line
           type="monotone"
           dataKey="BMI"
-          stroke="#8884d8"
+          stroke="#8a2be2"
           activeDot={{ r: 8 }}
+
         />
       </LineChart>
     </div>

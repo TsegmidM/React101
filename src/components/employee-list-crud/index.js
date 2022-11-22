@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import EmployeeCard from "./card";
 import EmployeeForm from "./form";
-import "./index.css";
+import "./emp-crud.css";
 
 const EmployeeListCrud = () => {
 

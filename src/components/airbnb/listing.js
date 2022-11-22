@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css"
+import "./airbnb-index.css"
 // import React, {useState} from "react";
 
 const Listing = (props) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import Listing from "./listing";
-import "./index.css"
+import "./airbnb-index.css"
 const houseList = [
   {
     imgFile: "https://a0.muscache.com/im/pictures/bc8d77d4-e617-44ca-8b15-b8b2ce55df35.jpg?im_w=720",

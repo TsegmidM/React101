@@ -26,6 +26,8 @@ import Page3 from "./components/router-playground/page3";
 import PageSharedLayout from "./components/layout-for-apps";
 import ImageSlider from "./components/image-slider";
 import BMITracker from "./components/BMI";
+import ColorPicker from "./components/color-picker";
+import ColorPicker2 from "./components/color-picker/index2";
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
           <Route path="image-slider" element={<ImageSlider />} />
           <Route path="bmi-finder" element={<BMITracker/>} />
           <Route path="memory-game" element={<MemoryGame />} />
+          <Route path="color-picker" element={<ColorPicker/>}/>
+          <Route path="color-picker2" element={<ColorPicker2/>}/>
           
         </Route>
         <Route path="*" element={<Page1 />} />

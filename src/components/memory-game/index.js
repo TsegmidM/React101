@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./index.css";
+import "./memory-game.css";
 import img1 from "./images/1.jpg";
 import img2 from "./images/2.jpg";
 import img3 from "./images/3.jpg";
@@ -74,7 +74,7 @@ const MemoryGame = () => {
   }, [twoFlipped]);
   // it should update the currently flipped cards state, so that the cards flip immediately
   // depending on how many of the 2 current flipped cards are flipped, check if the cards match
-
+ 
   return (
     <div className="memory-game-container">
       <div>

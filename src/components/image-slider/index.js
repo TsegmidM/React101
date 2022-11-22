@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "./index.css"
+import "./img-slider.css"
 import img1 from "./images/nasa1.jpg"
 import img2 from "./images/nasa2.png"
 import img3 from "./images/nasa3.jpg"

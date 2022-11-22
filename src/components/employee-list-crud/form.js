@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import EmployeeCard from "./card";
 import avatar1 from "./images/avatar1.png";
 import avatar2 from "./images/avatar2.png";
 import avatar3 from "./images/avatar3.png";
@@ -57,8 +56,6 @@ const EmployeeForm = (props) => {
     }
   }, [props.editCard]);
 
-  //console.log(props.editCard)
-
   const onFormSubmit = (e) => {
     e.preventDefault();
     if (props.editCard === null) {
@@ -84,7 +81,7 @@ const EmployeeForm = (props) => {
       },
       phone: "",
     });
-    // console.log(employeeData);
+  
   };
 
   function formatPhoneNumber(value) {

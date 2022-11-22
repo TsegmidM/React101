@@ -5,7 +5,7 @@ export default function PageSharedLayout() {
   const navigate = useNavigate()
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column'}}>
+    <div style={{ display: 'flex', flexDirection: 'column', }}>
       <div style={{ background: 'lightgray'}}>
         <button onClick={() => navigate('/')}>HOME</button>
         <button onClick={() => navigate('/todo-list')}>Todo List</button>
@@ -15,14 +15,15 @@ export default function PageSharedLayout() {
         <button onClick={() => navigate('/airbnb')}>Airbnb Clone</button>
         <button onClick={() => navigate('/image-slider')}>Image Slider</button>
         <button onClick={() => navigate('/bmi-finder')}>BMI Finder</button>
-        
+        <button onClick={() => navigate('/color-picker')}>Color Picker</button>
+
         {/* <button onClick={() => navigate('/pages/50', { replace: true })}>
           dynamic
         </button> */}
       </div>
-      <div>
+   
         <Outlet />
-      </div>
+      
     </div>
   )
 }

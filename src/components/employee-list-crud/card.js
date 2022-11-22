@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import "./index.css";
+import React from "react";
+import "./emp-crud.css";
 import { FaEdit } from "react-icons/fa";
 import { MdCancel, MdDelete } from "react-icons/md";
-import { clear } from "@testing-library/user-event/dist/clear";
 
 const EmployeeCard = ({
   info,
