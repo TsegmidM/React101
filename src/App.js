@@ -48,7 +48,7 @@ function App() {
           <Route path="color-picker2" element={<ColorPicker2/>}/>
           
         </Route>
-        <Route path="*" element={<Page1 />} />
+        <Route path="*" element={"404 Error"} />
     </Routes>
     </BrowserRouter>
     

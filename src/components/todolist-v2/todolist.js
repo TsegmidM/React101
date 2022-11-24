@@ -50,22 +50,24 @@ export default function ToDoListV3() {
         original: currState.original.map((currTodo, currTodoIdx) => {
           return currTodo.todoId === todoId
             ? {
-              ...currTodo,
-              isCompleted: !currTodo.isCompleted,
-            }
-            : currTodo;
-        }),
-        filtered: checkTodoStatus !== -1 ? currState.filtered.filter(
-          (currTodo) => currTodo.todoId !== todoId
-        )
-          : currState.original.map((currTodo, currTodoIdx) => {
-            return currTodo.todoId === todoId
-              ? {
                 ...currTodo,
                 isCompleted: !currTodo.isCompleted,
               }
-              : currTodo;
-          })
+            : currTodo;
+        }),
+        filtered:
+          checkTodoStatus !== -1
+            ? currState.filtered.filter(
+                (currTodo) => currTodo.todoId !== todoId
+              )
+            : currState.original.map((currTodo, currTodoIdx) => {
+                return currTodo.todoId === todoId
+                  ? {
+                      ...currTodo,
+                      isCompleted: !currTodo.isCompleted,
+                    }
+                  : currTodo;
+              }),
       };
     });
     console.log("isCompleted function called");
@@ -121,9 +123,11 @@ export default function ToDoListV3() {
     setTodoList((currState) => ({
       ...currState,
       filtered: currState.original.filter((v) =>
-        checkTodoStatus === 1 ? v.isCompleted && v.toDo.includes(e.target.value) :
-          checkTodoStatus === 0 ? !v.isCompleted && v.toDo.includes(e.target.value) :
-            v.toDo.includes(e.target.value)
+        checkTodoStatus === 1
+          ? v.isCompleted && v.toDo.includes(e.target.value)
+          : checkTodoStatus === 0
+          ? !v.isCompleted && v.toDo.includes(e.target.value)
+          : v.toDo.includes(e.target.value)
       ),
     }));
     console.log(todoList);
@@ -158,30 +162,28 @@ export default function ToDoListV3() {
         });
         setEditItemIdx(-1);
       } else {
-        setTodoList((currState) => {
-          const newTodo = {
-            todoId: currState.original.length + 1,
-            toDo: inputField.trim(),
-            author: "Ziggy",
-            time: new Date().toString().slice(0, 25),
-            isCompleted: false,
+        setTodoList(
+          (currState) => {
+            let newTodo = {
+              todoId: currState.original.length + 1,
+              toDo: inputField.trim(),
+              author: "Ziggy",
+              time: new Date().toString().slice(0, 25),
+              isCompleted: false,
+            };
+            return {
+              ...currState,
+              original: [
+                ...currState.original,
+                newTodo,
+              ],
+              filtered: [
+                ...currState.original,
+                newTodo,
+              ],
+            };
           }
-          return ({
-            ...currState,
-            original: [
-              ...currState.original,
-              newTodo,
-            ]
-          },
-          {
-            ...currState,
-            filtered: [
-              ...currState.original,
-              newTodo,
-            ]
-          }
-          )
-        }
+
           //  ({
           //   ...currState,
           //   original: [
@@ -208,7 +210,7 @@ export default function ToDoListV3() {
         );
       }
     }
-    setInputField({});
+    setInputField("");
     console.log("Submit button clicked");
     console.log(todoList);
   };

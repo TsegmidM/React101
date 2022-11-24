@@ -5,7 +5,7 @@ const ColorPicker = () => {
     const [color, setColor] = useState({ firstColor: "#ffafbd", secondColor: "#ffc3a0" });
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <div style={{ width: '50%', height: "500px", backgroundImage: `linear-gradient(to bottom, ${color.firstColor}, ${color.secondColor})` }}>
+            <div style={{ width: '90%', height: "500px", backgroundImage: `linear-gradient(to bottom, ${color.firstColor}, ${color.secondColor})` }}>
             </div>
             <div>
                 <label style={{ margin: "20px" }}>First Color:
