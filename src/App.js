@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter,Route,Routes, useNavigate} from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 
 // import CarOwners from "./car-owner/carOwner";
@@ -28,30 +28,34 @@ import ImageSlider from "./components/image-slider";
 import BMITracker from "./components/BMI";
 import ColorPicker from "./components/color-picker";
 import ColorPicker2 from "./components/color-picker/index2";
+import { EmployeeDetails } from "./components/employee-list-crud/emp-detail";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <Routes>
-        <Route element={<PageSharedLayout />}>
-          <Route index element={<EmployeeListCrud />} />
-          <Route path="todo-list" element={<ToDoListV3 />} />
-          <Route path="memory-game" element={<MemoryGame />} />
-          <Route path="tictactoe" element={<TicTacToe2 />} />
-          <Route path="live-clock" element={<LiveClock />} />
-          <Route path="airbnb" element={<HouseListing />} />
-          <Route path="image-slider" element={<ImageSlider />} />
-          <Route path="bmi-finder" element={<BMITracker/>} />
-          <Route path="memory-game" element={<MemoryGame />} />
-          <Route path="color-picker" element={<ColorPicker/>}/>
-          <Route path="color-picker2" element={<ColorPicker2/>}/>
-          
-        </Route>
-        <Route path="*" element={"404 Error"} />
-    </Routes>
-    </BrowserRouter>
-    
+        <Routes>
+          <Route element={<PageSharedLayout />}>
+          <Route index element={<LiveClock />} />
+            <Route path="/employees">
+            <Route index element={<EmployeeListCrud />} />
+            <Route path=":employeeId" element={<EmployeeDetails/>}/>
+            </Route>
+            <Route path="todo-list" element={<ToDoListV3 />} />
+            <Route path="memory-game" element={<MemoryGame />} />
+            <Route path="tictactoe" element={<TicTacToe2 />} />
+            <Route path="live-clock" element={<LiveClock />} />
+            <Route path="airbnb" element={<HouseListing />} />
+            <Route path="image-slider" element={<ImageSlider />} />
+            <Route path="bmi-finder" element={<BMITracker />} />
+            <Route path="memory-game" element={<MemoryGame />} />
+            <Route path="color-picker" element={<ColorPicker />} />
+            <Route path="color-picker2" element={<ColorPicker2 />} />
+          </Route>
+          <Route path="*" element={"404 Error"} />
+        </Routes>
+      </BrowserRouter>
+
       {/* {<CarOwners/>} */}
       {/* {<TodoList/>} */}
       {/* {<HouseListing/>} */}

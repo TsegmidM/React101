@@ -69,7 +69,7 @@
 .employee-card-button:first-child {
   color: blue;
 }
-.employee-card-button:last-child {
+.employee-card-button:nth-child(3) {
   color: red;
 }
 .employee-img {

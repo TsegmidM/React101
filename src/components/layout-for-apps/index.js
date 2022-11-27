@@ -16,6 +16,7 @@ export default function PageSharedLayout() {
         <button onClick={() => navigate('/image-slider')}>Image Slider</button>
         <button onClick={() => navigate('/bmi-finder')}>BMI Finder</button>
         <button onClick={() => navigate('/color-picker')}>Color Picker</button>
+        <button onClick={() => navigate('/employees')}>Employee List</button>
 
         {/* <button onClick={() => navigate('/pages/50', { replace: true })}>
           dynamic

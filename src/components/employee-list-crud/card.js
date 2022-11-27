@@ -1,7 +1,8 @@
 import React from "react";
 import "./emp-crud.css";
 import { FaEdit } from "react-icons/fa";
-import { MdCancel, MdDelete } from "react-icons/md";
+import { MdCancel, MdDelete, MdDetails } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const EmployeeCard = ({
   info,
@@ -21,6 +22,8 @@ const EmployeeCard = ({
   const state = info.address.state;
   const zipcode = info.address.zipcode;
   const phone = info.phone;
+  
+  const navigate = useNavigate();
 
   return (
     <div className="employee-card">
@@ -54,6 +57,13 @@ const EmployeeCard = ({
             <FaEdit />
             Edit
           </button>
+          <button className="employee-card-button"
+          onClick={() => {
+            navigate(`${info.id}`, {state: info});
+          }}>
+            <MdDetails /> View Details
+          </button>
+
           <button
             className="employee-card-button"
             onClick={() => {
@@ -71,7 +81,7 @@ const EmployeeCard = ({
               clearCard();
             }}
           >
-            <MdCancel/> 
+            <MdCancel />
             Cancel
           </button>
         </div>
