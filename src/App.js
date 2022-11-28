@@ -51,8 +51,8 @@ function App() {
             <Route path="memory-game" element={<MemoryGame />} />
             <Route path="color-picker" element={<ColorPicker />} />
             <Route path="color-picker2" element={<ColorPicker2 />} />
+            <Route path="*" element={"404 Error"} />
           </Route>
-          <Route path="*" element={"404 Error"} />
         </Routes>
       </BrowserRouter>
 
