@@ -10,6 +10,7 @@ const EmployeeCard = ({
   editCard,
   cardEdited,
   clearCard,
+  employeeData,
 }) => {
   const avatar = info.avatar;
   const firstName = info.firstName;
@@ -22,14 +23,12 @@ const EmployeeCard = ({
   const state = info.address.state;
   const zipcode = info.address.zipcode;
   const phone = info.phone;
-  
   const navigate = useNavigate();
-
   return (
     <div className="employee-card">
       <div className="card-context">
         <div>
-          <img className="employee-img" src={avatar} />
+          <img className="employee-img" src={avatar} alt="employee-profile-pic" />
         </div>
         <h3>
           {firstName} {lastName}
@@ -58,9 +57,10 @@ const EmployeeCard = ({
             Edit
           </button>
           <button className="employee-card-button"
-          onClick={() => {
-            navigate(`${info.id}`, {state: info});
-          }}>
+            onClick={() => {
+              //           navigate(`${info.id}`, {state: info});
+              navigate(`${info.id}`, { state: employeeData });
+            }}>
             <MdDetails /> View Details
           </button>
 

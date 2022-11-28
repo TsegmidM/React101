@@ -37,10 +37,15 @@ function App() {
         <Routes>
           <Route element={<PageSharedLayout />}>
           <Route index element={<LiveClock />} />
+
             <Route path="/employees">
             <Route index element={<EmployeeListCrud />} />
+           
             <Route path=":employeeId" element={<EmployeeDetails/>}/>
+            <Route path="*" element={"405 Error"} />
+          
             </Route>
+
             <Route path="todo-list" element={<ToDoListV3 />} />
             <Route path="memory-game" element={<MemoryGame />} />
             <Route path="tictactoe" element={<TicTacToe2 />} />

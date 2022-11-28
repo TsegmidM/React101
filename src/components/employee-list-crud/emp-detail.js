@@ -1,28 +1,34 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 export function EmployeeDetails() {
-  const location = useLocation();
+  const { state } = useLocation();
+  const { employeeId } = useParams();
+  const employee = state?.find((emp) => emp.id === parseInt(employeeId));
+
   return (
-    <div className="employee-card">
-      <div className="card-context">
-        <div>
-          <img className="employee-img" src={location.state.avatar} />
+    state ?
+      <div className="employee-card">
+        <div className="card-context">
+          <div>
+            <img className="employee-img" src={employee?.avatar} alt="avatar img" />
+          </div>
+          <h3>
+            {employee?.firstName} {employee?.lastName}
+          </h3>
+          <div>{employee?.role}</div>
+          <div>
+            <b>{employee?.company}</b>
+          </div>
+          <div>
+            {employee?.address.address1} {employee?.address.address2 !== "" ? `, ${employee?.address.address2}` : ""}
+          </div>
+          <div>
+            {employee?.address.city}, {employee?.address.state} {employee?.address.zipcode}
+          </div>
+          <div>{employee?.phone}</div>
         </div>
-        <h3>
-          {location.state.firstName} {location.state.lastName}
-        </h3>
-        <div>{location.state.role}</div>
-        <div>
-          <b>{location.state.company}</b>
-        </div>
-        <div>
-          {location.state.address.address1} {location.state.address.address2 !== "" ? `, ${location.state.address.address2}` : ""}
-        </div>
-        <div>
-          {location.state.address.city}, {location.state.address.state} {location.state.address.zipcode}
-        </div>
-        <div>{location.state.phone}</div>
       </div>
-    </div>
-  );
+      :
+      <div> 404. That's an error...</div>
+  )
 }

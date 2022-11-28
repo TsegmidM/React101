@@ -68,6 +68,7 @@ const EmployeeListCrud = () => {
               editCard={() => editCard(value)}
               cardEdited= {editingEmployeeData && value.id===editingEmployeeData.id ? true : false} 
               clearCard = {clearCard}
+              employeeData = {employeeData}
             />
           );
         })}
