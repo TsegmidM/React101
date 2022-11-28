@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { useMemo } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import {
@@ -9,7 +9,6 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer,
 } from "recharts";
 import "./bmi-index.css";
 
@@ -21,17 +20,27 @@ const BMITracker = () => {
   const [bmiIndex, setBmiIndex] = useState([]);
   const [byMetric, SetByMetric] = useState(true);
   const [activeIndex, setActiveIndex] = useState({});
-  
-  let highestBmi =
-    bmiIndex.length > 0
-      ? Math.max(...bmiIndex.map((o) => parseFloat(o.BMI)))
-      : 0;
 
-  console.log(bmiIndex);
-  console.log(highestBmi);
+  const showingData = useMemo(() => {
+    if (bmiIndex.length > 7)
+      return bmiIndex.slice(activeIndex.first, activeIndex.second);
+    else return bmiIndex.slice(-7);
+  }, [activeIndex]);
+
+  const memoizedHighestBmi = useMemo(() => {
+    if (bmiIndex.length > 0)
+      return Math.max(
+        ...bmiIndex
+          .slice(activeIndex.first, activeIndex.second)
+          .map((o) => parseFloat(o.BMI))
+      );
+    else return 0;
+  }, [activeIndex]);
 
   useEffect(() => {
-    setActiveIndex({ first: bmiIndex.length - 7, second: bmiIndex.length });
+    if (bmiIndex.length >= 7)
+      setActiveIndex({ first: bmiIndex.length - 7, second: bmiIndex.length });
+    else setActiveIndex({ first: 0, second: bmiIndex.length });
   }, [bmiIndex]);
 
   const onInputChange = (e) => {
@@ -44,7 +53,6 @@ const BMITracker = () => {
   };
 
   const onFormSubmit = (e) => {
-    //  console.log(Math.max(bmiIndex.BMI));
     e.preventDefault();
     let bmiByLb = ((bmiData.weight / bmiData.height ** 2) * 703).toFixed(1);
     let bmiByMetric = (bmiData.weight / (bmiData.height / 100) ** 2).toFixed(1);
@@ -69,8 +77,8 @@ const BMITracker = () => {
     <div className="bmi-tracker">
       <div className="bmi-buttons">
         <button
+          disabled={activeIndex.first === 0 ? true : false}
           onClick={() => {
-            console.log("ss", activeIndex);
             setActiveIndex((currState) => {
               if (currState.first > 0) {
                 return {
@@ -87,6 +95,7 @@ const BMITracker = () => {
           {"<"}
         </button>
         <button
+          disabled={activeIndex.second === bmiIndex.length ? true : false}
           onClick={() => {
             setActiveIndex((currState) => {
               if (currState.second === bmiIndex.length) {
@@ -99,7 +108,6 @@ const BMITracker = () => {
                 };
               }
             });
-            console.log("ss", activeIndex);
           }}
         >
           {">"}
@@ -112,7 +120,6 @@ const BMITracker = () => {
             SetByMetric(!byMetric);
           }}
         >
-          {" "}
           {byMetric ? "Change to Pound system" : "Change to Metric system"}{" "}
         </button>
 
@@ -157,11 +164,7 @@ const BMITracker = () => {
       <LineChart
         width={900}
         height={450}
-        data={
-          bmiIndex.length > 7
-            ? bmiIndex.slice(activeIndex.first, activeIndex.second)
-            : bmiIndex.slice(-7)
-        }
+        data={showingData}
         margin={{
           top: 15,
           right: 30,
@@ -174,7 +177,7 @@ const BMITracker = () => {
         <YAxis
           dataKey="BMI"
           tickCount={bmiIndex.length < 5 ? 5 : 10}
-          domain={[0, highestBmi]}
+          domain={[0, memoizedHighestBmi]}
         />
         <Tooltip />
         <Legend />

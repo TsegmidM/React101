@@ -15,7 +15,7 @@
 }
 .bmi-buttons {
   position: absolute;
-  top: 5%;
+  top: 50%;
   width: 100%;
   display: flex;
   justify-content: space-between;
