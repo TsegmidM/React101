@@ -1,30 +1,30 @@
 {
   "files": {
-    "main.css": "/static/css/main.18c930c4.css",
-    "main.js": "/static/js/main.a85d032b.js",
-    "static/js/787.252c5a3f.chunk.js": "/static/js/787.252c5a3f.chunk.js",
-    "static/media/nasa2.png": "/static/media/nasa2.a9ef153ea70cbdcb1e01.png",
-    "static/media/avatar3.png": "/static/media/avatar3.a085091f1ee37f941c36.png",
-    "static/media/avatar8.png": "/static/media/avatar8.d46244eacc3454c7da97.png",
-    "static/media/avatar5.png": "/static/media/avatar5.4b9302cdccfc80fa58ad.png",
-    "static/media/nasa5.jpg": "/static/media/nasa5.49dab1bc9f4e965a3b9e.jpg",
-    "static/media/avatar7.png": "/static/media/avatar7.c927c10378508b1195e6.png",
-    "static/media/avatar2.png": "/static/media/avatar2.3c4e23236a1d9809d268.png",
-    "static/media/nasa3.jpg": "/static/media/nasa3.4f677922d5c56a52dcc5.jpg",
-    "static/media/nasa4.jpg": "/static/media/nasa4.6d43c677e01b524f7112.jpg",
-    "static/media/avatar4.png": "/static/media/avatar4.d08aa8ff52a0a73f636a.png",
-    "static/media/avatar1.png": "/static/media/avatar1.49e66e42598d382c032a.png",
-    "static/media/avatar6.png": "/static/media/avatar6.5f35ce1d8066c480da61.png",
-    "static/media/nasa1.jpg": "/static/media/nasa1.290554fd2e477bc136da.jpg",
-    "static/media/star-regular.svg": "/static/media/star-regular.a5dbeab4792cef4d9defe687ccd292cc.svg",
-    "index.html": "/index.html",
-    "static/media/star-solid.svg": "/static/media/star-solid.a6dc763d42bd03b280e55b40beb3f579.svg",
-    "main.18c930c4.css.map": "/static/css/main.18c930c4.css.map",
-    "main.a85d032b.js.map": "/static/js/main.a85d032b.js.map",
-    "787.252c5a3f.chunk.js.map": "/static/js/787.252c5a3f.chunk.js.map"
+    "main.css": "/React101/static/css/main.18c930c4.css",
+    "main.js": "/React101/static/js/main.a7f4f18c.js",
+    "static/js/787.252c5a3f.chunk.js": "/React101/static/js/787.252c5a3f.chunk.js",
+    "static/media/nasa2.png": "/React101/static/media/nasa2.a9ef153ea70cbdcb1e01.png",
+    "static/media/avatar3.png": "/React101/static/media/avatar3.a085091f1ee37f941c36.png",
+    "static/media/avatar8.png": "/React101/static/media/avatar8.d46244eacc3454c7da97.png",
+    "static/media/avatar5.png": "/React101/static/media/avatar5.4b9302cdccfc80fa58ad.png",
+    "static/media/nasa5.jpg": "/React101/static/media/nasa5.49dab1bc9f4e965a3b9e.jpg",
+    "static/media/avatar7.png": "/React101/static/media/avatar7.c927c10378508b1195e6.png",
+    "static/media/avatar2.png": "/React101/static/media/avatar2.3c4e23236a1d9809d268.png",
+    "static/media/nasa3.jpg": "/React101/static/media/nasa3.4f677922d5c56a52dcc5.jpg",
+    "static/media/nasa4.jpg": "/React101/static/media/nasa4.6d43c677e01b524f7112.jpg",
+    "static/media/avatar4.png": "/React101/static/media/avatar4.d08aa8ff52a0a73f636a.png",
+    "static/media/avatar1.png": "/React101/static/media/avatar1.49e66e42598d382c032a.png",
+    "static/media/avatar6.png": "/React101/static/media/avatar6.5f35ce1d8066c480da61.png",
+    "static/media/nasa1.jpg": "/React101/static/media/nasa1.290554fd2e477bc136da.jpg",
+    "static/media/star-regular.svg": "/React101/static/media/star-regular.a5dbeab4792cef4d9defe687ccd292cc.svg",
+    "index.html": "/React101/index.html",
+    "static/media/star-solid.svg": "/React101/static/media/star-solid.a6dc763d42bd03b280e55b40beb3f579.svg",
+    "main.18c930c4.css.map": "/React101/static/css/main.18c930c4.css.map",
+    "main.a7f4f18c.js.map": "/React101/static/js/main.a7f4f18c.js.map",
+    "787.252c5a3f.chunk.js.map": "/React101/static/js/787.252c5a3f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.18c930c4.css",
-    "static/js/main.a85d032b.js"
+    "static/js/main.a7f4f18c.js"
   ]
 }
