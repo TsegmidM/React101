@@ -35,9 +35,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route element={<PageSharedLayout />}>
+          <Route path="/React101" element={<PageSharedLayout />}>
             <Route index element={<LiveClock />} />
-            <Route path="/employees">
+            <Route path="employees">
               <Route index element={<EmployeeListCrud />} />
               <Route path=":employeeId" element={<EmployeeDetails />} />
             </Route>
