@@ -17,7 +17,13 @@ const BMITracker = () => {
     height: "",
     weight: "",
   });
-  const [bmiIndex, setBmiIndex] = useState([]);
+
+  const [bmiIndex, setBmiIndex] = useState(
+    localStorage.getItem("bmiIndex")
+      ? JSON.parse(localStorage.getItem("bmiIndex"))
+      : []
+  );
+
   const [byMetric, SetByMetric] = useState(true);
   const [activeIndex, setActiveIndex] = useState({});
 
@@ -41,6 +47,11 @@ const BMITracker = () => {
     if (bmiIndex.length >= 7)
       setActiveIndex({ first: bmiIndex.length - 7, second: bmiIndex.length });
     else setActiveIndex({ first: 0, second: bmiIndex.length });
+  }, [bmiIndex]);
+
+  //add to localStorage
+  useEffect(() => {
+    localStorage.setItem("bmiIndex", JSON.stringify(bmiIndex));
   }, [bmiIndex]);
 
   const onInputChange = (e) => {
