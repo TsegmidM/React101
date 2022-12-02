@@ -29,6 +29,11 @@ import BMITracker from "./components/BMI";
 import ColorPicker from "./components/color-picker";
 import ColorPicker2 from "./components/color-picker/index2";
 import { EmployeeDetails } from "./components/employee-list-crud/emp-detail";
+import ApiCallPlayground from "./components/api-call-playground";
+import ChuchNorrisJokes from "./components/fetch-jokes";
+import FetchGithub from "./components/fetch-github";
+import FetchGithubFollowers from "./components/fetch-github-followers";
+import FetchedFollowerDetails from "./components/fetch-github-followers/followers-detail";
 
 function App() {
   return (
@@ -51,6 +56,15 @@ function App() {
             <Route path="memory-game" element={<MemoryGame />} />
             <Route path="color-picker" element={<ColorPicker />} />
             <Route path="color-picker2" element={<ColorPicker2 />} />
+            <Route path="apiplayground" element={<ApiCallPlayground/>} />
+            <Route path="chucknorrisjokes" element={<ChuchNorrisJokes/>} />
+            <Route path="fetchgithub" element={<FetchGithub/>} />
+           
+            <Route path="fetchgithubfollowers" > 
+            <Route index element={<FetchGithubFollowers/>}/>
+            <Route path=":githubfollowersname" element={<FetchedFollowerDetails/>}/>
+            </Route>
+            
             <Route path="*" element={"404 Error"} />
           </Route>
         </Routes>

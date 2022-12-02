@@ -17,6 +17,11 @@ export default function PageSharedLayout() {
         <button onClick={() => navigate('bmi-finder')}>BMI Finder</button>
         <button onClick={() => navigate('color-picker')}>Color Picker</button>
         <button onClick={() => navigate('employees')}>Employee List</button>
+        <button onClick={() => navigate('apiplayground')}>Api Playground</button>
+        <button onClick={() => navigate('chucknorrisjokes')}>Chuck Norris Jokes</button>
+        <button onClick={() => navigate('fetchgithub')}>Fetch Github</button>
+        <button onClick={() => navigate('fetchgithubfollowers')}>Fetch Github Followers</button>
+        
 
         {/* <button onClick={() => navigate('/pages/50', { replace: true })}>
           dynamic

@@ -78,6 +78,7 @@ export default function TicTacToe2() {
         onClick={() => {
           setBoardData({});
           setWinner(false);
+          setDraw(false);
           setCurrSymbol("X");
         }}
       >
