@@ -33,7 +33,7 @@ export default function FetchGithubFollowers() {
   return (
     <div>
       <div style={{display:"flex",justifyContent:"center"}}>
-        <h4>${githubName}'s followers</h4>
+        <h4>{githubName}'s followers</h4>
       </div>
       <div className="fetched-github-followers">
         {fetchedFollowers?.map((value, idx) => {
