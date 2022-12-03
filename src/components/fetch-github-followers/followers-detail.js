@@ -32,33 +32,7 @@ export default function FetchedFollowerDetails() {
 
   return (
     <div>
-        <FetchedGithubFollowers fetchedCardData={fetchedGithubFollowers}/>
+      <FetchedGithubFollowers fetchedCardData={fetchedGithubFollowers} />
     </div>
-
-    // <div className="fetched-github-followers-container">
-    //   <div className="fetched-github-followers-card">
-    //     <div className="fetched-github-followers-card-context">
-    //       <div>
-    //         <img
-    //           className="fetched-github-followers-card-img"
-    //           src={fetchedGithubFollowers?.avatar_url}
-    //           alt="avatar img"
-    //         />
-    //       </div>
-    //       <div className="fetched-github-followers-card-name">
-    //         {fetchedGithubFollowers?.name}
-    //       </div>
-    //       <div className="fetched-github-followers-card-login">
-    //         {fetchedGithubFollowers?.login}
-    //       </div>
-    //       <div>
-    //         <b>{fetchedGithubFollowers?.bio}</b>
-    //       </div>
-    //       <div>{`followers: ${fetchedGithubFollowers?.followers}`} </div>
-    //       <div>{`following: ${fetchedGithubFollowers?.following}`} </div>
-    //       <div>{`Repositories: ${fetchedGithubFollowers?.public_repos}`} </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
