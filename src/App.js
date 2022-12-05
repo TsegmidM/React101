@@ -34,6 +34,7 @@ import ChuchNorrisJokes from "./components/fetch-jokes";
 import FetchGithub from "./components/fetch-github";
 import FetchGithubFollowers from "./components/fetch-github-followers";
 import FetchedFollowerDetails from "./components/fetch-github-followers/followers-detail";
+import MovieDetails from "./components/tmdb-clone";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
             <Route path="apiplayground" element={<ApiCallPlayground/>} />
             <Route path="chucknorrisjokes" element={<ChuchNorrisJokes/>} />
             <Route path="fetchgithub" element={<FetchGithub/>} />
+            <Route path="tmdb-clone" element={<MovieDetails/>} />
            
             <Route path="fetchgithubfollowers" > 
             <Route index element={<FetchGithubFollowers/>}/>

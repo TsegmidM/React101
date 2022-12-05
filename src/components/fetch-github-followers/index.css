@@ -30,6 +30,7 @@
   color: white;
   left: 85%;
   top: 5%;
+  
 }
 .fgf-card-context {
   /* border: 1px solid black; */
@@ -96,8 +97,9 @@
 }
 .fgf-bottom-container {
   margin-top: 50px;
-  border: 0px solid black;
-  box-shadow: inset 0px 0px 3px 0px silver, 0px -3px 0px black;
+  border: 1px solid silver;
+  /* box-shadow: inset 0px 0px 3px 0px silver, 0px -3px 0px black; */
+  border-top: 4px solid;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
