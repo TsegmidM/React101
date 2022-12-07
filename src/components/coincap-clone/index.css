@@ -1,66 +1,79 @@
-.coincap-container{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    background-color:azure;
-    min-height: 100vh;
-    padding-top: 30px;
+.coincap-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background-color: azure;
+  min-height: 100vh;
+  padding-top: 30px;
 }
-.coincap-main-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 80vw;
-    position: absolute;
-    background-color: white;
-   
+.coincap-main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 80vw;
+  position: absolute;
+  background-color: white;
 }
 .main-container-top-section {
-    display: flex;
-    justify-content:flex-start;
-    background-color: rgb(184, 166, 166);
-    border-radius: 1px;
-    /* border: solid 1px red; */
-    width: 80vw;
+  display: flex;
+  justify-content: flex-start;
+  background-color: rgb(184, 166, 166);
+  border-radius: 1px;
+  /* border: solid 1px red; */
+  width: 80vw;
 }
-.main-container-top-section > *{
-    width: 16vw;
-    color: black;
-    font-weight: 400;
-    font-size: smaller;
+.main-container-top-section > * {
+  width: 16vw;
+  color: black;
+  font-weight: 400;
+  font-size: smaller;
 }
-.coincap-table{
-    width: 100%;
+.coincap-table {
+  width: 100%;
 }
-.main-container-coins{
-    display: flex;
-    height:50px;
-    width: 80vw;
-    /* justify-content: space-between; */
-    border-bottom: 1px solid silver;
-    align-items: center;
+.main-container-coins {
+  display: flex;
+  height: 50px;
+  width: 80vw;
+  border-bottom: 1px solid silver;
+  align-items: center;
 }
-.main-container-coins > *{
-    width: 16vw;
+.main-container-coins > * {
+  width: 16vw;
 }
-
-.coincap-coin{
-    display: flex;
-    overflow: hidden;
-    justify-content: center;
-    /* margin-right:130px; */
-    text-align: center;
-    /* width: 100%; */
-    
+.flash-red {
+  display: flex;
+  height: 50px;
+  width: 80vw;
+  border-bottom: 1px solid silver;
+  align-items: center;
+  background-color: rgb(244, 67, 54);
+  transition: background-color 0.35 ease 0s;
 }
-.coincap-rank{
-    width: 10vw;
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
+.flash-green {
+  background-color: rgb(60, 244, 54);
+  display: flex;
+  height: 50px;
+  width: 80vw;
+  border-bottom: 1px solid silver;
+  align-items: center;
 }
-.coincap-name{
-    width: 30vw;
-    display: flex;
-    justify-content: center;
+.coincap-coin {
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  /* margin-right:130px; */
+  text-align: center;
+  /* width: 100%; */
+}
+.coincap-rank {
+  width: 10vw;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+}
+.coincap-name {
+  width: 30vw;
+  display: flex;
+  justify-content: center;
 }

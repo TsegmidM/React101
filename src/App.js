@@ -36,6 +36,8 @@ import FetchGithubFollowers from "./components/fetch-github-followers";
 import FetchedFollowerDetails from "./components/fetch-github-followers/followers-detail";
 import MovieDetails from "./components/tmdb-clone";
 import CoinCapClone from "./components/coincap-clone";
+import CounterUseReducer from "./components/counterUseReducer";
+import ShoppingList from "./components/shopping-list";
 
 function App() {
   return (
@@ -63,6 +65,9 @@ function App() {
             <Route path="fetchgithub" element={<FetchGithub/>} />
             <Route path="tmdb-clone" element={<MovieDetails/>} />
             <Route path="coincap-clone" element={<CoinCapClone/>} />
+            <Route path="counter-usereducer" element={<CounterUseReducer/>} />
+            <Route path="shopping-list" element={<ShoppingList/>} />
+            
 
             <Route path="fetchgithubfollowers" > 
             <Route index element={<FetchGithubFollowers/>}/>

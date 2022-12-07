@@ -1,0 +1,30 @@
+.shoppingList-container{
+    min-height: 100vh;
+    /* position: relative; */
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-evenly;
+    padding-top: 30px;
+}
+.shoppingItem-main-container{
+    display: flex;
+    flex-direction: column;
+    width: 65vw;
+    /* position: absolute; */
+    /* left: 5%; */
+    /* border: 1px solid black; */
+
+}
+.singleItem-container{
+    display: flex;
+    /* min-width: 60vw; */
+    height: 300px;
+    border-bottom: 2px solid silver;
+    justify-content: space-between;
+}
+.shoppingCard-main-container{
+    /* position: absolute; */
+    /* right: 0%; */
+    width: 25vw;
+    border: 1px solid black;
+}

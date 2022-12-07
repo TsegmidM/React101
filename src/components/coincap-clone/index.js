@@ -34,49 +34,64 @@ export default function CoinCapClone() {
         //
         const result = [];
         capcoins.forEach((coin, id) => {
-          
-            if (coin?.name === newCoin[id]?.name) {
-              if (parseFloat(coin.priceUsd).toFixed(4) < parseFloat(newCoin[id].priceUsd).toFixed(4)) {
-                 result.push({...newCoin[id], change: 'up'})
-                // console.log(`${coin.name}: Usluu`)
-                // setCapcoins((curr) => {
-                //   return [...curr,{ ...newCoin[id], change: "up" }];
-                // });
-              } else if (parseFloat(coin.priceUsd).toFixed(4) > parseFloat(newCoin[id].priceUsd).toFixed(4)) {
-                 result.push({...newCoin[id], change: 'down'})
-                // setCapcoins((curr) => {
-                //    return [...curr,{ ...newCoin[id], change: "down" }];
-                //  // return curr.map((coin)=)
-                // });
-              } else if(parseFloat(coin.priceUsd).toFixed(4) === parseFloat(newCoin[id].priceUsd).toFixed(4)){
-                 result.push({...newCoin[id], change: 'no'})
-                // setCapcoins((curr) => {
-                //   return [...curr,{ ...newCoin[id], change: "no" }];
-                // });
-              }
+          if (coin?.name === newCoin[id]?.name) {
+            if (
+              parseFloat(coin.priceUsd).toFixed(4) <
+              parseFloat(newCoin[id].priceUsd).toFixed(4)
+            ) {
+              result.push({ ...newCoin[id], change: "up" });
+              // console.log(`${coin.name}: Usluu`)
+              // setCapcoins((curr) => {
+              //   return [...curr,{ ...newCoin[id], change: "up" }];
+              // });
+            } else if (
+              parseFloat(coin.priceUsd).toFixed(4) >
+              parseFloat(newCoin[id].priceUsd).toFixed(4)
+            ) {
+              result.push({ ...newCoin[id], change: "down" });
+              // setCapcoins((curr) => {
+              //    return [...curr,{ ...newCoin[id], change: "down" }];
+              //  // return curr.map((coin)=)
+              // });
+            } else if (
+              parseFloat(coin.priceUsd).toFixed(4) ===
+              parseFloat(newCoin[id].priceUsd).toFixed(4)
+            ) {
+              result.push({ ...newCoin[id], change: "no" });
+              // setCapcoins((curr) => {
+              //   return [...curr,{ ...newCoin[id], change: "no" }];
+              // });
             }
-
+          }
         });
-         setCapcoins(result)
-       // console.log(capcoins);
+        setCapcoins(result);
+        setTimeout(()=>{
+          setCapcoins(result.map((aaa)=>{
+            return{
+              ...aaa,
+              change:"no"
+            }
+          }))
+        },1000)
+        // console.log(capcoins);
         //  console.log(result[0])
-      } 
-      else setCapcoins(()=>{
-        return res.data.data.slice(0, 20).map((coin)=>{
-          return {...coin, change : 'no'}
-        })
-      });
+      } else
+        setCapcoins(() => {
+          return res.data.data.slice(0, 20).map((coin) => {
+            return { ...coin, change: "no" };
+          });
+        });
     });
   };
 
-//   useEffect(()=> {
-//     fetchCoinData();
-//   },[]);
+  //   useEffect(()=> {
+  //     fetchCoinData();
+  //   },[]);
 
   useEffect(() => {
     const counterInterval = setInterval(() => {
       fetchCoinData();
-    }, 2500);
+    }, 1500);
     return () => {
       clearInterval(counterInterval);
     };
@@ -85,9 +100,13 @@ export default function CoinCapClone() {
   return (
     <div className="coincap-container">
       <div className="coincap-main-container">
-        <button onClick={()=>{
+        <button
+          onClick={() => {
             fetchCoinData();
-        }}>FETCH GULUGUU</button>
+          }}
+        >
+          FETCH!
+        </button>
         <table className="coincap-table">
           <thead>
             <tr className="main-container-top-section">
@@ -103,17 +122,26 @@ export default function CoinCapClone() {
           {capcoins.slice(0, 20).map((coin, idx) => {
             return (
               <tbody key={idx}>
-                <tr className="main-container-coins">
+                <tr
+                  style={{
+                    backgroundColor:
+                      coin.change === "up"
+                        ? "green"
+                        : coin.change === "down"
+                        ? "red"
+                        : "white",
+                    transition: "background-color 0.5s ease-in-out",
+                  }}
+                  className="main-container-coins"
+                >
                   <td className="coincap-rank">
                     <span>{coin.rank}</span>
                   </td>
                   <td className="coincap-name">
                     <div
-                      style={{
-                        color: coin.change==="up" ? "green" : (coin.change ==="down" ? "red" : "black")
-                      }}
-
-                      
+                    // style={{
+                    //   color: coin.change==="up" ? "green" : (coin.change ==="down" ? "red" : "black")
+                    // }}
                     >
                       {coin.name}
                     </div>
