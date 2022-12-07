@@ -2,18 +2,56 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ShoppingItem from "./item";
 import "./index.css";
-import ShoppingCart from "./cart";
+import ShoppingCart from "./shopping-cart";
 import { useReducer } from "react";
 
-const reduceCart=(currState,action)=>{
-   // return[...currState,{thumbnail:action.data.thumbnail}]
-    return{...currState,thumbnail:action.data.thumbnail}
-    
-}
+// const addQuantity = (currState, item, action)=>{
+  
+//   return currState.map((item) => {
+//     if (item.sku === action.data.sku)
+//       return { ...item, quantity: item.quantity + 1 ,price: action.data.price * item.quantity};
+//     else return item;
+//   });
+
+// }
+
+const reduceCart = (currState, action) => {
+  
+  switch (action.type) {
+    case "addItemToCard":
+      if (currState.find((item) => item.sku === action.data.sku)) {
+        
+        return currState.map((item) => {
+          if (item.sku === action.data.sku)
+            return { ...item, quantity: item.quantity + 1 ,price: action.data.price * item.quantity};
+          else return item;
+        });
+      } else {
+        return [...currState, action.data];
+      }
+    case "removeByOne":
+      if (currState.find((item) => item.sku === action.data.sku)) {
+        return currState.map((item) => {
+          if (item.sku === action.data.sku)
+            return { ...item, quantity: item.quantity - 1 };
+          else return item;
+        });
+      } 
+      case "addbyOne":
+        if (currState.find((item) => item.sku === action.data.sku)) {
+          return currState.map((item) => {
+            if (item.sku === action.data.sku)
+              return { ...item, quantity: item.quantity + 1 };
+            else return item;
+          });
+        } 
+   
+  }
+};
 export default function ShoppingList() {
   const [products, setProducts] = useState([]);
-  const [cart, updateCart] = useReducer(reduceCart, {});
-  
+  const [cart, updateCart] = useReducer(reduceCart, []);
+
   useEffect(() => {
     fetchMovies();
   }, []);
@@ -21,7 +59,7 @@ export default function ShoppingList() {
   const fetchMovies = () => {
     axios
       .get(
-        `https://api.bestbuy.com/v1/products?format=json&show=sku,productId,name,type,regularPrice,salePrice,onSale,url,categoryPath,customerReviewAverage,customerReviewCount,department,largeImage,genre,albumTitle,releaseDate&apiKey=j7RQXCsGGeSc5GaXv0slAOAm`
+        `https://api.bestbuy.com/v1/products?format=json&show=sku,productId,name,type,regularPrice,salePrice,onSale,url,categoryPath,customerReviewAverage,customerReviewCount,department,largeImage,plot,genre,albumTitle,releaseDate,quantityLimit&apiKey=j7RQXCsGGeSc5GaXv0slAOAm`
       )
       .then((res) => {
         if (res.status === 200) {
@@ -42,12 +80,19 @@ export default function ShoppingList() {
     <div className="shoppingList-container">
       <div className="shoppingItem-main-container">
         {products.map((product, idx) => {
-          return <ShoppingItem productData={product} key={idx} 
-          updateCart={updateCart}/>;
+          return (
+            <ShoppingItem
+              productData={product}
+              key={idx}
+              updateCart={updateCart}
+            />
+          );
         })}
       </div>
       <div className="shoppingCard-main-container">
-        <ShoppingCart cart={cart}/>
+        {cart.map((cart, idx) => {
+          return <ShoppingCart cart={cart} key={idx} updateCart={updateCart}/>;
+        })}
       </div>
     </div>
   );

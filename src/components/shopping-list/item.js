@@ -14,11 +14,23 @@ export default function ShoppingItem({ productData, updateCart }) {
         {productData.customerReviewAverage}
       </div>
       <div>
-        {productData.regularPrice}
-        {productData.salePrice}
-        {productData.onSale}
+        {/* <span>{productData.onSale ? productData.salePrice : productData.regularPrice}</span> */}
+        {/* {productData.regularPrice}
+        {productData.salePrice} */}
+        {/* {productData.onSale} */}
+        <div>{productData.onSale ? productData.salePrice : productData.regularPrice}</div>
+        <div>
+          {productData.onSale && (
+            <div>
+              <div style={{ backgroundColor: "red", color: 'white' }}>{`save $${
+                productData.regularPrice - productData.salePrice
+              } `}</div>
+              <div>{`reg: ${productData.regularPrice}`}</div>
+            </div>
+          )}
+        </div>
         <button onClick={() => {
-            updateCart({type:'addItemToCard', data:{thumbnail:productData.largeImage}})
+            updateCart({type:'addItemToCard', data:{sku:productData.sku,thumbnail:productData.largeImage,name:productData.name,price: productData.onSale ? productData.salePrice : productData.regularPrice, quantity: 1, quantityLimit: productData.quantityLimit}})
         }}>ADD TO CART</button>
       </div>
     </div>
