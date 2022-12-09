@@ -6,7 +6,7 @@ import ShoppingCart from "./shopping-cart";
 import { useReducer } from "react";
 
 // const addQuantity = (currState, item, action)=>{
-  
+
 //   return currState.map((item) => {
 //     if (item.sku === action.data.sku)
 //       return { ...item, quantity: item.quantity + 1 ,price: action.data.price * item.quantity};
@@ -16,44 +16,57 @@ import { useReducer } from "react";
 // }
 
 const reduceCart = (currState, action) => {
-  
   switch (action.type) {
     case "addItemToCard":
-      if (currState.find((item) => item.sku === action.data.sku)) {
-        return currState.map((item) => {
-          if (item.sku === action.data.sku)
-            return { ...item, quantity: item.quantity + 1 ,totalPrice: item.sellingPrice * (item.quantity +1)};
-          else return item;
+      console.log("hi")
+      Object?.keys(currState).map((item) => {
+        if (item.sku === action.data.sku){
+          return {
+            ...currState,
+            quantity: item.quantity + 1,
+            totalPrice: item.sellingPrice * (item.quantity + 1),
+            // [...currState.addedSkus, action.data.sku],
+          }
+        }
+      });
 
-        });
-      } else {
-        return [...currState, action.data];
-      }
-      
-    case "removeByOne": 
-      if (currState.find((item) => item.sku === action.data.sku)) {
-        return currState.map((item) => {
-          if (item.sku === action.data.sku)
-            return { ...item, quantity: item.quantity - 1,totalPrice: item.sellingPrice * (item.quantity -1)};
-          else return item;
-        });
-      } 
-      case "addbyOne":
-        if (currState.find((item) => item.sku === action.data.sku)) {
-          return currState.map((item) => {
-            if (item.sku === action.data.sku)
-              return { ...item, quantity: item.quantity + 1,totalPrice: item.sellingPrice * (item.quantity +1)};
-            else return item;
-          });
-        } 
-   
+    // if (currState.find((item) => item.sku === action.data.sku)) {
+    //   return currState.map((item) => {
+    //     if (item.sku === action.data.sku)
+    //       return { ...item, quantity: item.quantity + 1 ,totalPrice: item.sellingPrice * (item.quantity +1)};
+    //     else return item;
+
+    //   });
+    // } else {
+    //   return [...currState, action.data];
+    // }
+
+    // case "removeByOne":
+    //   if (currState.find((item) => item.sku === action.data.sku)) {
+    //     return currState.map((item) => {
+    //       if (item.sku === action.data.sku)
+    //         return { ...item, quantity: item.quantity - 1,totalPrice: item.sellingPrice * (item.quantity -1)};
+    //       else return item;
+    //     });
+    //   }
+    //   case "addbyOne":
+    //     if (currState.find((item) => item.sku === action.data.sku)) {
+    //       return currState.map((item) => {
+    //         if (item.sku === action.data.sku)
+    //           return { ...item, quantity: item.quantity + 1,totalPrice: item.sellingPrice * (item.quantity +1)};
+    //         else return item;
+    //       });
+    //     }
+    //     case "removeItem":
+    //       return currState.filter((item)=>item.sku!==action.data.sku)
   }
 };
 export default function ShoppingList() {
   const [products, setProducts] = useState([]);
-  const [cart, updateCart] = useReducer(reduceCart, []);
+  const [cart, updateCart] = useReducer(reduceCart, {});
 
-  
+  //const [cart, updateCart] = useReducer(reduceCart, {addedSkus:[],sku:{},cartTotal:''});
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -66,7 +79,6 @@ export default function ShoppingList() {
       .then((res) => {
         if (res.status === 200) {
           setProducts(res.data.products);
-          console.log("HI");
         }
       })
       .catch((err) => {
@@ -92,11 +104,19 @@ export default function ShoppingList() {
           );
         })}
       </div>
-      <div className="shoppingCard-main-container">
-        {cart.map((cart, idx) => {
-          return <ShoppingCart cart={cart} key={idx} updateCart={updateCart}/>;
-        })}
-      </div>
+      {/* {Object?.keys(cart).length !== 0 && (
+        <div className="shoppingCard-main-container">
+          <div>
+            <span>Shopping Cart</span> <button>CART ICON</button>
+          </div>
+          {Object?.keys(cart).map((cart, idx) => {
+            return (
+              <ShoppingCart cart={cart} key={idx} updateCart={updateCart} />
+            );
+          })}
+          <div>Card total:$</div>
+        </div>
+      )} */}
     </div>
   );
 }

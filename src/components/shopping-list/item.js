@@ -30,7 +30,8 @@ export default function ShoppingItem({ productData, updateCart ,cart}) {
           )}
         </div>
         <button onClick={() => {
-           updateCart({type:'addItemToCard', data:{sku:productData.sku,thumbnail:productData.largeImage,name:productData.name,sellingPrice: productData.onSale ? productData.salePrice : productData.regularPrice, quantity: 1, quantityLimit: productData.quantityLimit}})
+          console.log(cart)
+          updateCart({type: cart.addedSkus?.some((sku)=>sku===productData.sku) ?'addItemToCard' : 'incrementCartItemQty', data:{sku:productData.sku,thumbnail:productData.largeImage,name:productData.name,sellingPrice: productData.onSale ? productData.salePrice : productData.regularPrice, quantity: 1, quantityLimit: productData.quantityLimit}})
         }}>ADD TO CART</button>
       </div>
     </div>
