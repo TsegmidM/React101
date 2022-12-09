@@ -1,5 +1,5 @@
 import "./index.css";
-export default function ShoppingItem({ productData, updateCart }) {
+export default function ShoppingItem({ productData, updateCart ,cart}) {
   return (
     <div className="singleItem-container">
       {/* <pre>{JSON.stringify(movieData, null, 2)}</pre> */}
@@ -30,7 +30,7 @@ export default function ShoppingItem({ productData, updateCart }) {
           )}
         </div>
         <button onClick={() => {
-            updateCart({type:'addItemToCard', data:{sku:productData.sku,thumbnail:productData.largeImage,name:productData.name,price: productData.onSale ? productData.salePrice : productData.regularPrice, quantity: 1, quantityLimit: productData.quantityLimit}})
+           updateCart({type:'addItemToCard', data:{sku:productData.sku,thumbnail:productData.largeImage,name:productData.name,sellingPrice: productData.onSale ? productData.salePrice : productData.regularPrice, quantity: 1, quantityLimit: productData.quantityLimit}})
         }}>ADD TO CART</button>
       </div>
     </div>

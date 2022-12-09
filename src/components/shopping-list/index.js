@@ -20,20 +20,21 @@ const reduceCart = (currState, action) => {
   switch (action.type) {
     case "addItemToCard":
       if (currState.find((item) => item.sku === action.data.sku)) {
-        
         return currState.map((item) => {
           if (item.sku === action.data.sku)
-            return { ...item, quantity: item.quantity + 1 ,price: action.data.price * item.quantity};
+            return { ...item, quantity: item.quantity + 1 ,totalPrice: item.sellingPrice * (item.quantity +1)};
           else return item;
+
         });
       } else {
         return [...currState, action.data];
       }
-    case "removeByOne":
+      
+    case "removeByOne": 
       if (currState.find((item) => item.sku === action.data.sku)) {
         return currState.map((item) => {
           if (item.sku === action.data.sku)
-            return { ...item, quantity: item.quantity - 1 };
+            return { ...item, quantity: item.quantity - 1,totalPrice: item.sellingPrice * (item.quantity -1)};
           else return item;
         });
       } 
@@ -41,7 +42,7 @@ const reduceCart = (currState, action) => {
         if (currState.find((item) => item.sku === action.data.sku)) {
           return currState.map((item) => {
             if (item.sku === action.data.sku)
-              return { ...item, quantity: item.quantity + 1 };
+              return { ...item, quantity: item.quantity + 1,totalPrice: item.sellingPrice * (item.quantity +1)};
             else return item;
           });
         } 
@@ -52,11 +53,12 @@ export default function ShoppingList() {
   const [products, setProducts] = useState([]);
   const [cart, updateCart] = useReducer(reduceCart, []);
 
+  
   useEffect(() => {
-    fetchMovies();
+    fetchProducts();
   }, []);
 
-  const fetchMovies = () => {
+  const fetchProducts = () => {
     axios
       .get(
         `https://api.bestbuy.com/v1/products?format=json&show=sku,productId,name,type,regularPrice,salePrice,onSale,url,categoryPath,customerReviewAverage,customerReviewCount,department,largeImage,plot,genre,albumTitle,releaseDate,quantityLimit&apiKey=j7RQXCsGGeSc5GaXv0slAOAm`
@@ -85,6 +87,7 @@ export default function ShoppingList() {
               productData={product}
               key={idx}
               updateCart={updateCart}
+              cart={cart}
             />
           );
         })}

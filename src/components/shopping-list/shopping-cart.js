@@ -15,16 +15,16 @@ export default function ShoppingCart ({cart,updateCart}){
                     <div>{cart.name}</div>
                     <div>{cart?.quantity}
                     <button onClick={()=>{
-                       cart.quantityLimit > cart.quantity &&  updateCart({type:"addbyOne", data:{sku: cart.sku}})
+                       cart.quantityLimit > cart.quantity &&  updateCart({type:"addbyOne", data:{sku: cart.sku,sellingPrice:cart.price,quantity:cart.quantity}})
 
                     }}>+</button>
                     <button onClick={()=>{
-                       cart?.quantity > 0 && updateCart({type:"removeByOne", data:{sku: cart.sku}})
+                       cart?.quantity > 0 && updateCart({type:"removeByOne", data:{sku: cart.sku,sellingPrice:cart.price,quantity:cart.quantity}})
                     }}>-</button>
                     </div>
                 </div>
                 <div>
-                    <div>${cart.price}</div>
+                    <div>{cart.quantity<1 ? "" : cart?.quantity > 1 ? cart.totalPrice :cart.sellingPrice }</div>
                     <button onClick={()=>{
                         updateCart({type:"removeWholeCart", data:{sku:cart.sku}})
                     }}>REMOVE</button>
