@@ -1,7 +1,7 @@
 import { CartesianGrid } from "recharts"
 
 export default function ShoppingCart ({cart,updateCart}){
-   // console.log(cart)
+  // console.log(cart,"ASD")
     return (
         <div>
                     <div>
@@ -18,7 +18,7 @@ export default function ShoppingCart ({cart,updateCart}){
                     </div>
                 </div>
                 <div>
-                    <div>${cart.quantity<1 ? "" : cart?.quantity > 1 ? cart.totalPrice :cart.sellingPrice }</div>
+                    <div>{cart.quantity<1 ? "" : cart?.quantity > 1 ? `$${cart.totalPrice}` : `$${cart.sellingPrice}` }</div>
                     <button onClick={()=>{
                         updateCart({type:"removeItem", data:{sku:cart.sku}})
                     }}>REMOVE</button>
