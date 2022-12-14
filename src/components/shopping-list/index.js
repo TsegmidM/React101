@@ -20,8 +20,8 @@ const reduceCart = (currState, action) => {
       //   }
       // });
 
-      if (currState.find((item) => item.sku === action.data.sku)) {
-        return currState.map((item) => {
+      if (currState.items?.find((item) => item.sku === action.data.sku)) {
+        return currState.items.map((item) => {
           if (item.sku === action.data.sku)
             return {
               ...item,
@@ -31,47 +31,56 @@ const reduceCart = (currState, action) => {
           else return item;
         });
       } else {
-        return [...currState, action.data];
+        return [...currState.items, action.data];
       }
 
-    case "removeByOne":
-      if (currState.find((item) => item.sku === action.data.sku)) {
-        return currState.map((item) => {
-          if (item.sku === action.data.sku)
-            return {
-              ...item,
-              quantity: item.quantity - 1,
-              totalPrice: item.sellingPrice * (item.quantity - 1),
-            };
-          else return item;
-        });
-      }
-    case "addbyOne":
-      if (currState.find((item) => item.sku === action.data.sku)) {
-        return currState.map((item) => {
-          if (item.sku === action.data.sku)
-            return {
-              ...item,
-              quantity: item.quantity + 1,
-              totalPrice: item.sellingPrice * (item.quantity + 1),
-            };
-          else return item;
-        });
-      }
-    case "removeItem":
-      return currState.filter((item) => item.sku !== action.data.sku);
+    // case "removeByOne":
+    //   if (currState.find((item) => item.sku === action.data.sku)) {
+    //     return currState.map((item) => {
+    //       if (item.sku === action.data.sku)
+    //         return {
+    //           ...item,
+    //           quantity: item.quantity - 1,
+    //           totalPrice: item.sellingPrice * (item.quantity - 1),
+    //         };
+    //       else return item;
+    //     });
+    //   }
+    // case "addbyOne":
+    //   if (currState.find((item) => item.sku === action.data.sku)) {
+    //     return currState.map((item) => {
+    //       if (item.sku === action.data.sku)
+    //         return {
+    //           ...item,
+    //           quantity: item.quantity + 1,
+    //           totalPrice: item.sellingPrice * (item.quantity + 1),
+    //         };
+    //       else return item;
+    //     });
+    //   }
+    // case "removeItem":
+    //   return currState.filter((item) => item.sku !== action.data.sku);
   }
 };
 export default function ShoppingList() {
   const [products, setProducts] = useState([]);
-  const [cart, updateCart] = useReducer(reduceCart, []);
+  //const [cart, updateCart] = useReducer(reduceCart, []);
+  /**
+   * {
+   *  items: [],
+   * totalQty: 0,
+   * totalAmount: 0,
+   * skus: [] 
+   * }
+   */
+  const [cart, updateCart] = useReducer(reduceCart, {items:[],totalQty:0,totalAmount:0,skus:[]});
+
   const [cartTotalPrice, setCartTotalPrice] = useState();
 
   useEffect(() => {
-    setCartTotalPrice(cart.reduce((total, item) => total + item.totalPrice, 0));
+    setCartTotalPrice(cart.items?.reduce((total, item) => total + item.totalPrice, 0));
   }, [cart]);
 
-  //const [cart, updateCart] = useReducer(reduceCart, {addedSkus:[],sku:{},cartTotal:'0});
 
   useEffect(() => {
     fetchProducts();
@@ -109,7 +118,7 @@ export default function ShoppingList() {
           );
         })}
       </div>
-      {cart.length !== 0 && (
+      {cart.items?.length !== 0 && (
         <div className="shoppingCard-main-container">
           <div className="customer-cart-top">
             <div className="customer-card-text">
@@ -117,10 +126,10 @@ export default function ShoppingList() {
             </div>
             <div className="customer-card-icon-container">
               <FaShoppingCart className="customer-card-icon" />(
-              {cart.reduce((total, item) => total + item.quantity, 0)})
+              {cart.items?.reduce((total, item) => total + item.quantity, 0)})
             </div>
           </div>
-          {cart.map((cart, idx) => {
+          {cart.items?.map((cart, idx) => {
             return (
               <ShoppingCart cart={cart} key={idx} updateCart={updateCart} />
             );

@@ -54,6 +54,7 @@ export default function ShoppingItem({ productData, updateCart, cart }) {
             className="shopping-addtocart-btn"
             onClick={() => {
               updateCart({
+                // type: cart.skus.includes(productData.sku) ? "addItemToCard" : "update",
                 type: "addItemToCard",
                 data: {
                   sku: productData.sku,
