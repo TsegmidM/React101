@@ -9,31 +9,21 @@ import { FaShoppingCart } from "react-icons/fa";
 const reduceCart = (currState, action) => {
   switch (action.type) {
     case "addItemToCard":
-      // Object?.keys(currState).map((item) => {
-      //   if (item.sku === action.data.sku){
-      //     return {
-      //       ...currState,
-      //       quantity: item.quantity + 1,
-      //       totalPrice: item.sellingPrice * (item.quantity + 1),
-      //       addedSku.push(action.data.sku),
-      //     }
-      //   }
-      // });
-
-      if (currState.items?.find((item) => item.sku === action.data.sku)) {
-        return currState.items.map((item) => {
-          if (item.sku === action.data.sku)
-            return {
-              ...item,
-              quantity: item.quantity + 1,
-              totalPrice: item.sellingPrice * (item.quantity + 1),
-            };
-          else return item;
-        });
-      } else {
-        return [...currState.items, action.data];
-      }
-
+      return {
+        items: [
+          ...currState.items,
+          {
+            ...action.data,
+            quantity: 1,
+          },
+        ],
+        totalQty: currState.totalQty + 1,
+        totalAmount: currState.items?.reduce(
+          (total, item) => total + item.totalPrice,
+          0
+        ),
+        skus: [...currState.skus, action.data.sku],
+      };
     // case "removeByOne":
     //   if (currState.find((item) => item.sku === action.data.sku)) {
     //     return currState.map((item) => {
@@ -70,17 +60,23 @@ export default function ShoppingList() {
    *  items: [],
    * totalQty: 0,
    * totalAmount: 0,
-   * skus: [] 
+   * skus: []
    * }
    */
-  const [cart, updateCart] = useReducer(reduceCart, {items:[],totalQty:0,totalAmount:0,skus:[]});
+  const [cart, updateCart] = useReducer(reduceCart, {
+    items: [],
+    totalQty: 0,
+    totalAmount: 0,
+    skus: [],
+  });
 
   const [cartTotalPrice, setCartTotalPrice] = useState();
 
   useEffect(() => {
-    setCartTotalPrice(cart.items?.reduce((total, item) => total + item.totalPrice, 0));
+    setCartTotalPrice(
+      cart?.items?.reduce((total, item) => total + item.totalPrice, 0)
+    );
   }, [cart]);
-
 
   useEffect(() => {
     fetchProducts();
@@ -114,11 +110,12 @@ export default function ShoppingList() {
               productData={product}
               key={idx}
               updateCart={updateCart}
+              cart={cart}
             />
           );
         })}
       </div>
-      {cart.items?.length !== 0 && (
+      {cart?.items?.length !== 0 && (
         <div className="shoppingCard-main-container">
           <div className="customer-cart-top">
             <div className="customer-card-text">
@@ -126,10 +123,10 @@ export default function ShoppingList() {
             </div>
             <div className="customer-card-icon-container">
               <FaShoppingCart className="customer-card-icon" />(
-              {cart.items?.reduce((total, item) => total + item.quantity, 0)})
+              {cart?.items?.reduce((total, item) => total + item.quantity, 0)})
             </div>
           </div>
-          {cart.items?.map((cart, idx) => {
+          {cart?.items?.map((cart, idx) => {
             return (
               <ShoppingCart cart={cart} key={idx} updateCart={updateCart} />
             );
