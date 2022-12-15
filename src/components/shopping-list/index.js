@@ -3,8 +3,8 @@ import axios from "axios";
 import ShoppingItem from "./item";
 import "./index.css";
 import { useReducer } from "react";
-import ShoppingCart from "./shopping-cart";
-import { FaShoppingCart } from "react-icons/fa";
+import ShoppingCardList from "./shopping-cart-list";
+import ShoppingItemList from "./item-list";
 
 const reduceCart = (currState, action) => {
   switch (action.type) {
@@ -15,69 +15,69 @@ const reduceCart = (currState, action) => {
           {
             ...action.data,
             quantity: 1,
+            totalPrice: action.data.sellingPrice,
           },
         ],
         totalQty: currState.totalQty + 1,
-        totalAmount: currState.items?.reduce(
-          (total, item) => total + item.totalPrice,
-          0
-        ),
+        totalAmount: currState.totalAmount + action.data.sellingPrice,
         skus: [...currState.skus, action.data.sku],
       };
-    // case "removeByOne":
-    //   if (currState.find((item) => item.sku === action.data.sku)) {
-    //     return currState.map((item) => {
-    //       if (item.sku === action.data.sku)
-    //         return {
-    //           ...item,
-    //           quantity: item.quantity - 1,
-    //           totalPrice: item.sellingPrice * (item.quantity - 1),
-    //         };
-    //       else return item;
-    //     });
-    //   }
-    // case "addbyOne":
-    //   if (currState.find((item) => item.sku === action.data.sku)) {
-    //     return currState.map((item) => {
-    //       if (item.sku === action.data.sku)
-    //         return {
-    //           ...item,
-    //           quantity: item.quantity + 1,
-    //           totalPrice: item.sellingPrice * (item.quantity + 1),
-    //         };
-    //       else return item;
-    //     });
-    //   }
-    // case "removeItem":
-    //   return currState.filter((item) => item.sku !== action.data.sku);
+    case "addbyOne":
+      return {
+        ...currState,
+        items: currState.items.map((item) => {
+          if (item.sku === action.data.sku) {
+            return {
+              ...item,
+              quantity: item.quantity + 1,
+              totalPrice: item.sellingPrice * (item.quantity + 1),
+            };
+          } else {
+            return item;
+          }
+        }),
+        totalQty: currState.totalQty + 1,
+        totalAmount: currState.totalAmount + action.data.sellingPrice,
+      };
+    case "removeByOne":
+      return {
+        ...currState,
+        items: currState.items.map((item) => {
+          if (item.sku === action.data.sku) {
+            return {
+              ...item,
+              quantity: item.quantity - 1,
+              totalPrice: item.sellingPrice * (item.quantity - 1),
+            };
+          } else {
+            return item;
+          }
+        }),
+        totalQty: currState.totalQty - 1,
+        totalAmount: currState.totalAmount - action.data.sellingPrice,
+      };
+
+    case "removeItem":
+      const itemToRemove = currState.items.find((item) => item.sku === action.data.sku);
+      return {
+        ...currState,
+        items: currState.items.filter((item) => item.sku !== action.data.sku),
+        skus: currState.skus.filter((sku) => sku !== action.data.sku),
+        totalQty: currState.totalQty - itemToRemove.quantity,
+        totalAmount: currState.totalAmount - itemToRemove.totalPrice,
+      };
+    default:
+      window.alert("Error");
   }
 };
 export default function ShoppingList() {
   const [products, setProducts] = useState([]);
-  //const [cart, updateCart] = useReducer(reduceCart, []);
-  /**
-   * {
-   *  items: [],
-   * totalQty: 0,
-   * totalAmount: 0,
-   * skus: []
-   * }
-   */
   const [cart, updateCart] = useReducer(reduceCart, {
     items: [],
     totalQty: 0,
     totalAmount: 0,
     skus: [],
   });
-
-  const [cartTotalPrice, setCartTotalPrice] = useState();
-
-  useEffect(() => {
-    setCartTotalPrice(
-      cart?.items?.reduce((total, item) => total + item.totalPrice, 0)
-    );
-  }, [cart]);
-
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -103,37 +103,13 @@ export default function ShoppingList() {
   };
   return (
     <div className="shoppingList-container">
-      <div className="shoppingItem-main-container">
-        {products.map((product, idx) => {
-          return (
-            <ShoppingItem
-              productData={product}
-              key={idx}
-              updateCart={updateCart}
-              cart={cart}
-            />
-          );
-        })}
-      </div>
+      <ShoppingItemList
+        products={products}
+        cart={cart}
+        updateCart={updateCart}
+      />
       {cart?.items?.length !== 0 && (
-        <div className="shoppingCard-main-container">
-          <div className="customer-cart-top">
-            <div className="customer-card-text">
-              <h3>Shopping Cart</h3>
-            </div>
-            <div className="customer-card-icon-container">
-              <FaShoppingCart className="customer-card-icon" />(
-              {cart?.items?.reduce((total, item) => total + item.quantity, 0)})
-            </div>
-          </div>
-          {cart?.items?.map((cart, idx) => {
-            return (
-              <ShoppingCart cart={cart} key={idx} updateCart={updateCart} />
-            );
-          })}
-          <div>Card total:${parseFloat(cartTotalPrice).toFixed(2)}</div>
-          {/* {cart.reduce((total, item) => total + item.totalPrice, 0)} */}
-        </div>
+        <ShoppingCardList cart={cart} updateCart={updateCart} />
       )}
     </div>
   );
