@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ShoppingItem from "./item";
 import "./index.css";
 import { useReducer } from "react";
 import ShoppingCardList from "./shopping-cart-list";
 import ShoppingItemList from "./item-list";
+import { createContext } from "react";
+
+export const ShoppingDataContext = createContext();
 
 const reduceCart = (currState, action) => {
   switch (action.type) {
@@ -85,11 +87,11 @@ export default function ShoppingList() {
   const fetchProducts = () => {
     axios
       .get(
-        `https://api.bestbuy.com/v1/products?format=json&show=sku,productId,name,type,regularPrice,salePrice,onSale,url,categoryPath,customerReviewAverage,customerReviewCount,department,thumbnailImage,largeImage,plot,genre,albumTitle,releaseDate,quantityLimit&apiKey=j7RQXCsGGeSc5GaXv0slAOAm`
+        `https://api.bestbuy.com/v1/products?pageSize=10&format=json&show=sku,onlineAvailability,productId,name,type,regularPrice,salePrice,onSale,url,categoryPath,customerReviewAverage,customerReviewCount,department,thumbnailImage,largeImage,plot,genre,albumTitle,releaseDate,quantityLimit&apiKey=j7RQXCsGGeSc5GaXv0slAOAm`
       )
       .then((res) => {
         if (res.status === 200) {
-          setProducts(res.data.products);
+          setProducts([...res.data.products]);
         }
       })
       .catch((err) => {
@@ -102,6 +104,7 @@ export default function ShoppingList() {
       });
   };
   return (
+    <ShoppingDataContext.Provider value={{products, cart, updateCart}}>
     <div className="shoppingList-container">
       <ShoppingItemList
         products={products}
@@ -112,5 +115,6 @@ export default function ShoppingList() {
         <ShoppingCardList cart={cart} updateCart={updateCart} />
       )}
     </div>
+    </ShoppingDataContext.Provider>
   );
 }

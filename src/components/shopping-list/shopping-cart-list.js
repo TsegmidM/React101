@@ -1,22 +1,39 @@
+import { useContext } from "react";
 import { FaShoppingCart } from "react-icons/fa";
+import { ShoppingDataContext } from ".";
 import ShoppingCart from "./shopping-cart";
 
-export default function ShoppingCardList({ cart, updateCart }) {
+export default function ShoppingCardList() {
+  const { updateCart, cart } = useContext(ShoppingDataContext);
+
   return (
     <div className="shoppingCard-main-container">
       <div className="customer-cart-top">
-        <div className="customer-card-text">
-          <h3>Shopping Cart</h3>
-        </div>
+        <span className="customer-cart-heading">Shopping Cart</span>
+        {/* <h5 className="customer-cart-remove-all">Remove all</h5> */}
         <div className="customer-card-icon-container">
-          <FaShoppingCart className="customer-card-icon" />({cart.totalQty})
+          <div className="customer-card-icon-container">
+            <FaShoppingCart className="customer-card-icon"/>
+            <span className="cart-items-totalQty">{cart.totalQty}</span>
+          </div>
         </div>
       </div>
-      {cart?.items?.map((cart, idx) => {
-        return <ShoppingCart cart={cart} key={idx} updateCart={updateCart} />;
+      {cart?.items?.map((cartItem, idx) => {
+        return (
+          <ShoppingCart cartItem={cartItem} key={idx} updateCart={updateCart} />
+        );
       })}
-      <div>Card total:${parseFloat(cart.totalAmount).toFixed(2)}</div>
-      {/* {cart.items.reduce((total, item) => total + item.totalPrice, 0)} */}
+      <div className="cart-checkout">
+        <div className="cart-total">
+          <div>
+            <div className="cart-subtotal">Sub-Total</div>
+            <div className="cart-total-items">{`${cart.totalQty} items`}</div>
+          </div>
+          <div className="cart-total-amount">
+            ${parseFloat(cart.totalAmount).toFixed(2)}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

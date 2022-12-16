@@ -1,6 +1,10 @@
+import { useContext , memo} from "react";
+import { ShoppingDataContext } from ".";
 import ShoppingItem from "./item";
 
-export default function ShoppingItemList({products,updateCart,cart}){
+export default memo (function ShoppingItemList({products}){
+  // const { products} = useContext(ShoppingDataContext)
+    
     return(
         <div className="shoppingItem-main-container">
         {products.map((product, idx) => {
@@ -8,11 +12,9 @@ export default function ShoppingItemList({products,updateCart,cart}){
             <ShoppingItem
               productData={product}
               key={idx}
-              updateCart={updateCart}
-              cart={cart}
             />
           );
         })}
       </div>
     )
-}
+})
