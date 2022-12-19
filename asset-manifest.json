@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/React101/static/css/main.02e5df9c.css",
-    "main.js": "/React101/static/js/main.e3170c46.js",
+    "main.css": "/React101/static/css/main.6f41de93.css",
+    "main.js": "/React101/static/js/main.ebe9134e.js",
     "static/js/787.252c5a3f.chunk.js": "/React101/static/js/787.252c5a3f.chunk.js",
     "static/media/nasa2.png": "/React101/static/media/nasa2.a9ef153ea70cbdcb1e01.png",
     "static/media/avatar3.png": "/React101/static/media/avatar3.a085091f1ee37f941c36.png",
@@ -19,12 +19,12 @@
     "static/media/star-regular.svg": "/React101/static/media/star-regular.a5dbeab4792cef4d9defe687ccd292cc.svg",
     "index.html": "/React101/index.html",
     "static/media/star-solid.svg": "/React101/static/media/star-solid.a6dc763d42bd03b280e55b40beb3f579.svg",
-    "main.02e5df9c.css.map": "/React101/static/css/main.02e5df9c.css.map",
-    "main.e3170c46.js.map": "/React101/static/js/main.e3170c46.js.map",
+    "main.6f41de93.css.map": "/React101/static/css/main.6f41de93.css.map",
+    "main.ebe9134e.js.map": "/React101/static/js/main.ebe9134e.js.map",
     "787.252c5a3f.chunk.js.map": "/React101/static/js/787.252c5a3f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.02e5df9c.css",
-    "static/js/main.e3170c46.js"
+    "static/css/main.6f41de93.css",
+    "static/js/main.ebe9134e.js"
   ]
 }
