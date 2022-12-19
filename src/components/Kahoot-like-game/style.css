@@ -6,11 +6,48 @@
   flex-direction: column;
   text-align: center;
   font-size: 0.875rem;
-  /* align-items: center; */
 }
-
+.kahoot-scoreboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.kahoot-scoreboard {
+  width: 100%;
+  display: flex;
+  padding: 2rem 5rem;
+  background-color: rgb(255, 255, 255);
+  color: rgb(51, 51, 51);
+  justify-content: center;
+  font-size: 4vmin;
+  font-weight: 700;
+}
+.kahoot-scoreboard-main {
+  width: 6500px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+.kahoot-start-btn {
+  margin-top: 20px;
+  height: 50px;
+  width: 200px;
+  border: 0px;
+  border-radius: 10px;
+  background-color: rgb(253, 186, 0);
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+.kahoot-start-btn:hover {
+  background-color: rgb(241, 179, 8);
+}
 .kahoot-quiz {
-  /* width: 100%; */
   display: flex;
   padding: 2rem 5rem;
   background-color: rgb(255, 255, 255);
@@ -18,49 +55,49 @@
   justify-content: center;
   align-items: center;
   font-size: 4vmin;
-  /* line-height: 1.25; */
   font-weight: 700;
- 
-  /* box-sizing: border-box; */
   height: 96px;
   position: relative;
 }
-.kahoot-quiz-text{
-    height: 100%;
-    /* width: 100vw; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* left: 150px; */
-    /* border: 1px solid red; */
-    white-space: pre-wrap;
-    letter-spacing: -0.063rem;
-    font-size: 4vmin;
-   
+.kahoot-quiz-text {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: pre-wrap;
+  letter-spacing: -0.063rem;
+  font-size: 4vmin;
 }
-.kahoot-current-quiz{
-    position: absolute;
-    /* width: 120px; */
-    font-size: 1rem;
-    top: 10px;
-    left: 10px;
-    background: rgba(143, 134, 134, 0.2);
-    padding-left: 15px;
-    padding-right: 15px;
-    border-radius: 15px;
+.kahoot-current-quiz {
+  position: absolute;
+  font-size: 1rem;
+  top: 10px;
+  left: 10px;
+  background: rgba(143, 134, 134, 0.2);
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 .kahoot-middle-secion {
   height: 430px;
-  /* width: 900px; */
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: relative;
 }
+.kahoot-point-status {
+  width: 650px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(51, 51, 51);
+  font-size: 4vmin;
+  font-weight: 700;
+  border-radius: 50px;
+}
+
 .timeUp {
-  /* transform: translateY(-100%); */
-  animation: 0.3s ease-in-out 1.3s 1 normal forwards running cJoAcA;
-  /* position: relative; */
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -68,7 +105,6 @@
   width: calc(100% - 2rem);
   padding: 1rem;
   height: 4rem;
-  /* margin-bottom: -6rem; */
   color: rgb(255, 255, 255);
   background-color: rgb(255, 51, 85);
   position: absolute;
@@ -90,13 +126,11 @@
   width: 100%;
 }
 .kahoot-next-btn {
-  /* margin: auto; */
   min-width: 8.25rem;
   animation: 0.3s ease;
   position: absolute;
   top: 25%;
   right: 1%;
-  /* width: initial; */
   border: 0px;
   cursor: pointer;
   box-shadow: rgb(0 0 0 / 15%) 0px 2px 4px, rgb(0 0 0 / 25%) 0px -4px inset;
@@ -106,13 +140,11 @@
   font-size: 0.875rem;
   font-weight: bold;
   text-align: center;
-  /* min-width: 42px; */
   min-height: 42px;
   padding: 0px 16px 4px;
   position: absolute;
 }
 .kahoot-answer-btn:disabled {
-  /* opacity:1 !important; */
   opacity: 0.6;
 }
 .kahoot-btn0:hover {
@@ -147,7 +179,6 @@
   height: 150px;
   padding-left: 10px;
   padding-right: 10px;
-  
 }
 .kahoot-answer-btn {
   cursor: pointer;
@@ -166,7 +197,28 @@
   box-sizing: border-box;
   fill: rgb(255, 255, 255);
 }
-.kahoot-answers-btn-text{
-    display: flex;
-    align-items: center;
+.kahoot-answers-btn-text {
+  display: flex;
+  align-items: center;
+}
+
+.timer-wrapper {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+}
+
+.timer {
+  font-family: "Montserrat";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-text {
+  color: #aaa;
+}
+
+.timer-value {
+  font-size: 40px;
 }
