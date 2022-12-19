@@ -1,9 +1,15 @@
+import { useEffect } from "react";
 import { useContext } from "react";
 import { ShoppingDataContext } from ".";
 
 export default function ShoppingCart({ cartItem }) {
   const { updateCart } = useContext(ShoppingDataContext);
 
+  useEffect(() => {
+    if (cartItem.quantity === 0)
+      updateCart({ type: "removeItem", data: { sku: cartItem.sku } });
+  }, [cartItem.quantity]);
+  
   return (
     <div className="cart-items">
       <div className="image-box">
@@ -57,13 +63,13 @@ export default function ShoppingCart({ cartItem }) {
             : `$${cartItem.sellingPrice}`}
         </div>
         <div className="cart-item-remove">
-        <u
-          onClick={() => {
-            updateCart({ type: "removeItem", data: { sku: cartItem.sku } });
-          }}
-        >
-          Remove
-        </u>
+          <u
+            onClick={() => {
+              updateCart({ type: "removeItem", data: { sku: cartItem.sku } });
+            }}
+          >
+            Remove
+          </u>
         </div>
       </div>
     </div>
