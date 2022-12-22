@@ -1,11 +1,12 @@
 .kahoot-main {
-  width: 100%;
+  /* width: 100%; */
   height: 100vh;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   text-align: center;
   font-size: 0.875rem;
+  /* border: 1px solid red; */
 }
 .kahoot-homepage{
   display: flex;
@@ -30,7 +31,7 @@
   /* border: 2px solid red; */
   /* display: flex;
   justify-content: space-between; */
-  padding: 150px;
+  /* padding: 150px; */
 }
 .kahoot-hp-body-btn{
   cursor: pointer;
@@ -47,6 +48,8 @@
   border: none;
 }
 .kahoot-scoreboard-container {
+    width: 100vw;
+    height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,7 +65,7 @@
   font-weight: 700;
 }
 .kahoot-scoreboard-main {
-  width: 6500px;
+  width: 650px;
   height: 600px;
   display: flex;
   flex-direction: column;
@@ -95,7 +98,7 @@
   align-items: center;
   font-size: 4vmin;
   font-weight: 700;
-  height: 96px;
+  height: 14vh;
   position: relative;
 }
 .kahoot-quiz-text {
@@ -119,24 +122,14 @@
   
 }
 .kahoot-middle-secion {
-  height: 430px;
+  height:30vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items:flex-end;
+  /* align-content: space-between; */
   position: relative;
+  /* border: 2px solid red; */
 }
-.kahoot-point-status {
-  width: 650px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: rgb(51, 51, 51);
-  font-size: 3vmin;
-  font-weight: 700;
-  border-radius: 50px;
-}
-
 .timeUp {
   display: flex;
   -webkit-box-align: center;
@@ -144,7 +137,7 @@
   justify-content: center;
   width: calc(100% - 2rem);
   padding: 1rem;
-  height: 4rem;
+  height: 12vh;
   color: rgb(255, 255, 255);
   background-color: rgb(255, 51, 85);
   position: absolute;
@@ -162,14 +155,11 @@
   padding-left: 20px;
   padding-right: 20px;
 }
-.kahoot-answer-section {
-  width: 100%;
-}
 .kahoot-next-btn {
   min-width: 8.25rem;
   animation: 0.3s ease;
   position: absolute;
-  top: 25%;
+  top: 60%;
   right: 1%;
   border: 0px;
   cursor: pointer;
@@ -192,38 +182,50 @@
 }
 .kahoot-btn0 {
   background-color: rgb(226, 27, 60);
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 .kahoot-btn1:hover {
   background-color: rgb(10, 88, 184);
 }
 .kahoot-btn1 {
   background-color: rgb(19, 104, 206);
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 .kahoot-btn2:hover {
   background-color: rgb(201, 149, 5);
 }
 .kahoot-btn2 {
   background-color: rgb(216, 158, 0);
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 .kahoot-btn3:hover {
   background-color: rgb(29, 114, 8);
 }
 .kahoot-btn3 {
   background-color: rgb(38, 137, 12);
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
+.kahoot-answer-section {
+    /* width: 100vw; */
+    height: 30vh;
+    /* border: 2px solid blue; */
+    display: flex;
+    justify-content: center;
+    
+  }
+  
 .kahoot-answers {
-  height: 150px;
+    margin-top: 10px;
+  /* height: 150px; */
+  display: flex;
+  justify-content: center;
   padding-left: 10px;
   padding-right: 10px;
 }
 .kahoot-answer-btn {
   cursor: pointer;
-  height: 150px;
-  width: 100%;
+  height: 15vh;
+  width: 45vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
