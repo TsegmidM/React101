@@ -10,7 +10,7 @@ import {
 } from "antd";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { APIKEY } from "./enum";
 const { Option } = Select;
 
@@ -32,6 +32,7 @@ export default function EmpDetail() {
   const [form] = Form.useForm();
   const { employeeId } = useParams();
   const [action, setAction] = useState();
+  const navigate = useNavigate();
 
   const onFinish = (values) => {
     if (values === "deactivate" || values === "activate") {
@@ -142,6 +143,15 @@ export default function EmpDetail() {
     }
   }, []);
   return (
+    <div>
+      <Row >
+        <Col offset={1} >
+      <Button  type="primary" 
+      onClick={()=>{
+         navigate('../')
+      }} > {'<  '}Back</Button>
+      </Col>
+      </Row>
     <Form
       disabled={!isActive}
       form={form}
@@ -447,5 +457,6 @@ export default function EmpDetail() {
 
       {/* <pre>{JSON.stringify(employeeData, null, 2)}</pre> */}
     </Form>
+    </div>
   );
 }
