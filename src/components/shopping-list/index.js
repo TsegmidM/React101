@@ -25,6 +25,12 @@ const reduceCart = (currState, action) => {
         skus: [...currState.skus, action.data.sku],
       };
     case "addbyOne":
+      // case CartSwitchTypes.IncrementQuantity:
+      // const cartItem = currState.itemList.find(
+      //   (item) => item.sku === action.data.sku
+      // );
+      // if (cartItem.quantityLimit === cartItem.quantity) return currState;
+
       return {
         ...currState,
         items: currState.items.map((item) => {

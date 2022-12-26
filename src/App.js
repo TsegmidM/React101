@@ -38,10 +38,10 @@ import MovieDetails from "./components/tmdb-clone";
 import CoinCapClone from "./components/coincap-clone";
 import CounterUseReducer from "./components/counterUseReducer";
 import ShoppingList from "./components/shopping-list";
-import TableExample from "./components/table-example";
+// import TableExample from "./components/table-example";
 import CrudEmpUsingApi from "./components/crud-emp";
 import EmpDetail from "./components/crud-emp/detail";
-import TreeComponent from "./components/stateful-component-tree";
+// import TreeComponent from "./components/stateful-component-tree";
 import ThemeChanger from "./components/theme-changer";
 import KahootClone from "./components/Kahoot-like-game";
 
@@ -74,8 +74,8 @@ function App() {
             <Route path="coincap-clone" element={<CoinCapClone/>} />
             <Route path="counter-usereducer" element={<CounterUseReducer/>} />
             <Route path="shopping-list" element={<ShoppingList/>} />
-            <Route path="tableexample" element={<TableExample/>} />
-            <Route path="treecomponent" element={<TreeComponent/>} />
+            {/* <Route path="tableexample" element={<TableExample/>} /> */}
+            {/* <Route path="treecomponent" element={<TreeComponent/>} /> */}
             <Route path="themechanger" element={<ThemeChanger/>} />
             <Route path="kahootclone" element={<KahootClone />} />
             
@@ -83,6 +83,8 @@ function App() {
             <Route path="crudAPI" >
             <Route index element={<CrudEmpUsingApi/>}/>
             <Route path=":employeeId" element={<EmpDetail/>}/>
+            {/* <Route path="add" element={<EmpDetail/>}/> */}
+            
             
             </Route>
             

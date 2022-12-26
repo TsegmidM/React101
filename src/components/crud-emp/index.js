@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment/moment";
-import { useNavigate, useParams } from "react-router-dom";
-import { Table, Button } from "antd";
+import { useNavigate} from "react-router-dom";
+import { Table, Button,Row, Col } from "antd";
+import { APIKEY } from "../employee-list-crud/enum";
 export default function CrudEmpUsingApi() {
   const [employeeList, setEmployeeList] = useState([]);
   const navigate = useNavigate();
-  const { employeeId } = useParams();
+
 
   useEffect(() => {
     fetchEmployeesList();
@@ -17,7 +17,7 @@ export default function CrudEmpUsingApi() {
       .create({
         baseURL: "https://bark-backend.azurewebsites.net",
         headers: {
-          Authorization: "Bearer k9DmN1IlWuW1ZL7-hPLm1vvtWNA34BgY_a2-KZz6YVk",
+          Authorization: APIKEY.bearer,
         },
       })
       .post("/api/employee/list", {
@@ -43,8 +43,15 @@ export default function CrudEmpUsingApi() {
   };
   return (
     <div>
-      <pre>{JSON.stringify(employeeList, null, 2)}</pre>
-      <button>+ New Employee</button>
+      {/* <pre>{JSON.stringify(employeeList, null, 2)}</pre> */}
+      <Row >
+        <Col offset={21} >
+      <Button  type="primary" 
+      onClick={()=>{
+        navigate('add')
+      }} >+ New Employee</Button>
+      </Col>
+      </Row>
       <Table
         dataSource={employeeList}
         columns={[
@@ -84,7 +91,7 @@ export default function CrudEmpUsingApi() {
             title: "Status",
             dataIndex: "deactivatedDate",
             render: (deactivatedDate) => {
-              return <span>{deactivatedDate ? "Active" : "Inactive"}</span>;
+              return <span>{deactivatedDate ? "Inactive" : "Active"}</span>;
             },
           },
           {
@@ -93,8 +100,8 @@ export default function CrudEmpUsingApi() {
                 <Button
                   type="primary"
                   onClick={() => {
-                    navigate(`${emplInfo.Id}`);
-                    console.log(emplInfo.Id)
+                    navigate(`${emplInfo?.id}`);
+                    // console.log(emplInfo.id)
                   }}
                 >
                   Edit
@@ -104,45 +111,6 @@ export default function CrudEmpUsingApi() {
           },
         ]}
       ></Table>
-      {/* <table>
-        <thead>
-          <tr>
-            <th colSpan="2">Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Role</th>
-            <th>Created Date</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {employeeList.map((employee, idx) => {
-            return (
-              <tr key={idx}>
-                <td>{employee.firstName}</td>
-                <td>{employee.lastName}</td>
-                <td>{employee.email}</td>
-                <td>{employee?.phone ? employee?.phone : "-"}</td>
-                <td>{employee.role}</td>
-                <td>
-                  {moment(employee.createdDate).format("MM/DD/YYYY h:m A")}
-                </td>
-                <td>{employee?.deactivatedDate ? "Active" : "Inactive"}</td>
-                <td>
-                  <button
-                    onClick={() => {
-                      navigate(`${employee.id}`);
-                    }}
-                  >
-                    Edit
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table> */}
     </div>
   );
 }

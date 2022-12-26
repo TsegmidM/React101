@@ -25,6 +25,7 @@ export default function PageSharedLayout() {
         <button onClick={() => navigate('themechanger')}>Theme Changer</button>
         <button onClick={() => navigate('shopping-list')}>Shopping List</button>
         <button onClick={() => navigate('kahootclone')}>Kahoot Clone</button>
+        <button onClick={() => navigate('crudapi')}>Crud Api</button>
        
 
         {/* <button onClick={() => navigate('/pages/50', { replace: true })}>
