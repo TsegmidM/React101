@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { APIKEY } from "../employee-list-crud/enum";
+import { APIKEY } from "./enum";
 const { Option } = Select;
 
 /* eslint-disable no-template-curly-in-string */

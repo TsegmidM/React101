@@ -3,7 +3,7 @@ import axios from "axios";
 import moment from "moment/moment";
 import { useNavigate} from "react-router-dom";
 import { Table, Button,Row, Col } from "antd";
-import { APIKEY } from "../employee-list-crud/enum";
+import { APIKEY } from "./enum";
 export default function CrudEmpUsingApi() {
   const [employeeList, setEmployeeList] = useState([]);
   const navigate = useNavigate();
