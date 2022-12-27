@@ -1,3 +1,3 @@
 export const APIKEY = {
-    bearer:'Bearer oCGWbrHaxfG_a4Io1PprQfUFBAPJr5nlSiid4hKWSkM'
+    bearer:'Bearer WRz57XOUxQdl2JgBsNvka55n18tuyArTk46GmqnzorM'
   }

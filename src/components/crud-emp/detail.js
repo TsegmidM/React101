@@ -9,6 +9,7 @@ import {
   Divider,
   Modal,
   notification,
+  Tabs,
 } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 
@@ -142,7 +143,7 @@ export default function EmpDetail() {
           email: values.email,
           role: values.role,
           note: values.note,
-          locationId: values.locationId,
+          locationId: values.locationId === "iCodice Bootcamp" ? 68 : 68,
         })
         .then((res) => {
           console.log(res);
@@ -173,7 +174,7 @@ export default function EmpDetail() {
               email: res.data.email,
               phone: res.data.phone,
               role: res.data.role,
-              locationId: res.data.locationId,
+              locationId: res.data.locationId === 68 ? "iCodice Bootcamp" : 68,
               countryId:
                 res.data.countryId === 8 ? "Mongolia" : "United States",
               address1: res.data.address1,
@@ -190,6 +191,19 @@ export default function EmpDetail() {
   return (
     <div>
       {contextHolder}
+      <Tabs
+      type="card"
+      size="large"
+       defaultActiveKey="1"
+      //  onChange={onChange}
+       items={[
+         {
+           label: employeeId==='add' ? "Add New Employee" : "Employee Details",
+           key: '1',
+         },
+        ]}>
+
+      </Tabs>
       <Row>
         <Col style={{ padding: "20px 20px" }}>
           <Button
@@ -292,7 +306,7 @@ export default function EmpDetail() {
                   rules={[{ required: true }]}
                 >
                   <Select placeholder="Select location">
-                    <Option value="68">iCodice Bootcamp</Option>
+                    <Option value="iCodice Bootcamp">iCodice Bootcamp</Option>
                   </Select>
                 </Form.Item>
               </Col>

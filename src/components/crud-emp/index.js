@@ -48,6 +48,8 @@ export default function CrudEmpUsingApi() {
     <div>
       {/* <pre>{JSON.stringify(employeeList, null, 2)}</pre> */}
       <Tabs
+       type="card"
+       size="large"
        defaultActiveKey="1"
       //  onChange={onChange}
        items={[
