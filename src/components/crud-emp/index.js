@@ -36,6 +36,9 @@ export default function CrudEmpUsingApi() {
         if (err.status === 404) {
           console.error("Either your endpoint is wrong or no data found!");
         }
+        else if(err.status === 401){
+          window.alert("401: Unauthorized")
+        }
       })
       .finally((finallyP) => {
         console.log("request is completed!", finallyP);
