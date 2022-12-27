@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment/moment";
-import { useNavigate} from "react-router-dom";
-import { Table, Button,Row, Col } from "antd";
+import { useNavigate, useParams} from "react-router-dom";
+import { Table, Button,Row, Col, Tabs } from "antd";
 import { APIKEY } from "./enum";
 export default function CrudEmpUsingApi() {
   const [employeeList, setEmployeeList] = useState([]);
   const navigate = useNavigate();
-
+  const { employeeId } = useParams();
 
   useEffect(() => {
     fetchEmployeesList();
@@ -47,6 +47,17 @@ export default function CrudEmpUsingApi() {
   return (
     <div>
       {/* <pre>{JSON.stringify(employeeList, null, 2)}</pre> */}
+      <Tabs
+       defaultActiveKey="1"
+      //  onChange={onChange}
+       items={[
+         {
+           label: "Home",
+           key: '1',
+         },
+        ]}>
+
+      </Tabs>
       <Row >
         <Col offset={21} >
       <Button  type="primary" 
@@ -104,7 +115,6 @@ export default function CrudEmpUsingApi() {
                   type="primary"
                   onClick={() => {
                     navigate(`${emplInfo?.id}`);
-                    // console.log(emplInfo.id)
                   }}
                 >
                   Edit

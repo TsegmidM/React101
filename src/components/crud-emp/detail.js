@@ -8,7 +8,7 @@ import {
   Col,
   Divider,
   Modal,
-  notification
+  notification,
 } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 
@@ -41,9 +41,9 @@ export default function EmpDetail() {
   const navigate = useNavigate();
 
   const [api, contextHolder] = notification.useNotification();
-  const openNotification = (placement,message) => {
+  const openNotification = (placement, message) => {
     api.info({
-      message:message ,
+      message: message,
       placement,
     });
   };
@@ -58,10 +58,17 @@ export default function EmpDetail() {
           if (type === "activate") onFinish("activate");
           else onFinish("deactivate");
           setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-        }).catch(() => console.log("Oops errors!"))
-        .then(()=>{
-          // openNotification('topRight');
         })
+          .catch(() => console.log("Oops errors!"))
+          .then(() => {
+            if (type === "activate")
+              openNotification("topRight", "Succesfully activated the account");
+            else if (type === "deactivate")
+              openNotification(
+                "topRight",
+                "Succesfully deactivated the account"
+              );
+          });
       },
       onCancel() {},
     });
@@ -82,8 +89,6 @@ export default function EmpDetail() {
         )
         .then((res) => {
           setisActive(!isActive);
-          openNotification(  openNotification('topRight', 
-          values==='activate' ? 'Succesfully activated': " Succesfully deactivated"));
           console.log(res);
         });
     } else if (action === "create") {
@@ -112,7 +117,7 @@ export default function EmpDetail() {
           password: values.password,
         })
         .then((res) => {
-          openNotification('topRight','Succesfully created new employee');
+          openNotification("topRight", "Succesfully created the account!");
           console.log(res);
         });
     } else {
@@ -141,7 +146,11 @@ export default function EmpDetail() {
         })
         .then((res) => {
           console.log(res);
-          openNotification('topRight','Succesfully updated the employee detail');
+
+          openNotification(
+            "topRight",
+            "Succesfully updated the employee details!"
+          );
         });
     }
   };
@@ -158,7 +167,6 @@ export default function EmpDetail() {
         .get(`/api/employee/${employeeId}`)
         .then((res) => {
           if (res.status === 200) {
-            
             form.setFieldsValue({
               firstName: res.data.firstName,
               lastName: res.data.lastName,
@@ -183,14 +191,13 @@ export default function EmpDetail() {
     <div>
       {contextHolder}
       <Row>
-        <Col offset={1}>
+        <Col style={{ padding: "20px 20px" }}>
           <Button
             type="primary"
             onClick={() => {
               navigate("../");
             }}
           >
-            {" "}
             {"<  "}Back
           </Button>
         </Col>
@@ -300,6 +307,37 @@ export default function EmpDetail() {
                       {
                         required: true,
                         message: "Please input your password!",
+                      },
+                      {
+                        validator(_, value) {
+                          const lowercaseRegex = /^(?=.*[a-z]).*$/;
+                          const uppercaseRegex = /^(?=.*[A-Z]).*$/;
+                          const numericRegex = /^(?=.*[0-9]).*$/;
+                          const lengthRegex = /^.{6,}$/;
+                          let errorMessage = "";
+                          if (!lowercaseRegex.test(value)) {
+                            errorMessage +=
+                              "Must contain at least one lowercase character (a-z)!\n";
+                          }
+                          if (!uppercaseRegex.test(value)) {
+                            errorMessage +=
+                              "Must contain at least one uppercase character (A-Z)!\n";
+                          }
+                          if (!numericRegex.test(value)) {
+                            errorMessage +=
+                              "Must contain at least one numeric character (0-9)!\n";
+                          }
+                          if (!lengthRegex.test(value)) {
+                            errorMessage +=
+                              "Must be at least 6 characters long!\n";
+                          }
+
+                          if (errorMessage) {
+                            return Promise.reject(new Error(errorMessage));
+                          } else {
+                            return Promise.resolve();
+                          }
+                        },
                       },
                     ]}
                     hasFeedback
@@ -442,7 +480,7 @@ export default function EmpDetail() {
                         type="primary"
                         onClick={() => {
                           showPromiseConfirm("deactivate");
-                           setAction("deactivate");
+                          setAction("deactivate");
                         }}
                       >
                         Deactivate
