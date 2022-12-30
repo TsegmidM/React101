@@ -17,28 +17,21 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { APIKEY } from "./enum";
-import { act } from "react-dom/test-utils";
 const { Option } = Select;
 const { confirm } = Modal;
 
-/* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: "${label} is required!",
   types: {
     email: "${label} is not a valid email!",
     number: "${label} is not a valid number!",
   },
-  number: {
-    range: "${label} must be between ${min} and ${max}",
-  },
 };
-/* eslint-enable no-template-curly-in-string */
 
 export default function EmpDetail() {
   const [isActive, setisActive] = useState(true);
   const [form] = Form.useForm();
   const { employeeId } = useParams();
-  const [action, setAction] = useState();
   const navigate = useNavigate();
 
   const [api, contextHolder] = notification.useNotification();
@@ -56,8 +49,8 @@ export default function EmpDetail() {
       content: "Are you sure to proceed?",
       onOk() {
         return new Promise((resolve, reject) => {
-          if (type === "activate") onFinish("activate");
-          else onFinish("deactivate");
+          if (type === "activate") handleStatus("activate");
+          else handleStatus("deactivate");
           setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
         })
           .catch(() => console.log("Oops errors!"))
@@ -76,63 +69,29 @@ export default function EmpDetail() {
   };
   const handleStatus = (type) => {
     // type = activate | deactivate
-  }
+    axios
+      .create({
+        baseURL: "https://bark-backend.azurewebsites.net",
+        headers: {
+          Authorization: APIKEY.bearer,
+        },
+      })
+      .put(
+        `/api/employee/${employeeId}/isactive?isActive=${
+          type === "activate" ? "true" : "false"
+        }`
+      )
+      .then((res) => {
+        setisActive(!isActive);
+        console.log(res);
+      });
+  };
   const onFinish = (values) => {
     // values
-    if(employeeId) {
+    if (employeeId !== 'add') {
       //put
-    } else {
-      ///post
-    }
-    if (values === "deactivate" || values === "activate") {
-      axios
-        .create({
-          baseURL: "https://bark-backend.azurewebsites.net",
-          headers: {
-            Authorization: APIKEY.bearer,
-          },
-        })
-        .put(
-          `/api/employee/${employeeId}/isactive?isActive=${
-            values === "activate" ? "true" : "false"
-          }`
-        )
-        .then((res) => {
-          setisActive(!isActive);
-          console.log(res);
-        });
-    } else if (action === "create") {
-      console.log(values.locationId);
-      axios
-        .create({
-          baseURL: "https://bark-backend.azurewebsites.net",
-          headers: {
-            Authorization: APIKEY.bearer,
-          },
-        })
-        .post(`/api/employee`, {
-          firstName: values.firstName,
-          lastName: values.lastName,
-          address1: values.address1,
-          address2: values?.address2,
-          city: values.city,
-          state: values.state,
-          zip: values.zip,
-          countryId: values.countryId === "Mongolia" ? 8 : 2,
-          phone: values.phone,
-          email: values.email,
-          role: values.role,
-          note: values.note,
-          locationId: 68,
-          password: values.password,
-        })
-        .then((res) => {
-          openNotification("topRight", "Succesfully created the account!");
-          console.log(res);
-        });
-    } else {
-      console.log("hi22");
-      axios
+      console.log(employeeId)
+        axios
         .create({
           baseURL: "https://bark-backend.azurewebsites.net",
           headers: {
@@ -162,9 +121,37 @@ export default function EmpDetail() {
             "Succesfully updated the employee details!"
           );
         });
+    } else{
+      ///post
+      axios
+      .create({
+        baseURL: "https://bark-backend.azurewebsites.net",
+        headers: {
+          Authorization: APIKEY.bearer,
+        },
+      })
+      .post(`/api/employee`, {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        address1: values.address1,
+        address2: values?.address2,
+        city: values.city,
+        state: values.state,
+        zip: values.zip,
+        countryId: values.countryId === "Mongolia" ? 8 : 2,
+        phone: values.phone,
+        email: values.email,
+        role: values.role,
+        note: values.note,
+        locationId: 68,
+        password: values.password,
+      })
+      .then((res) => {
+        openNotification("topRight", "Succesfully created the account!");
+        console.log(res);
+      });
     }
   };
-
   useEffect(() => {
     if (employeeId !== "add") {
       axios
@@ -204,7 +191,6 @@ export default function EmpDetail() {
         type="card"
         size="large"
         defaultActiveKey="1"
-        //  onChange={onChange}
         items={[
           {
             label:
@@ -212,9 +198,10 @@ export default function EmpDetail() {
             key: "1",
           },
         ]}
-      ></Tabs>
+      >
+      </Tabs>
       <Row>
-        <Col style={{ padding: "20px 20px" }}>
+        <Col span={21} style={{ padding: "20px 20px" }}>
           <Button
             type="primary"
             onClick={() => {
@@ -222,6 +209,16 @@ export default function EmpDetail() {
             }}
           >
             {"<  "}Back
+          </Button>
+        </Col>
+        <Col span={1} style={{ padding: "20px 20px" }}>
+          <Button
+            type="primary"
+            shape="round"
+            cursor="no"
+            style={{ background:isActive ? "green" : "grey", cursor:'text'}}
+          >
+            {isActive ? "Active" : "Inactive"}
           </Button>
         </Col>
       </Row>
@@ -496,14 +493,11 @@ export default function EmpDetail() {
                   <Col offset={8} span={7}>
                     <Form.Item>
                       <Button
-                        name="button"
-                        value="deactivatebtn"
                         danger
                         block
                         type="primary"
                         onClick={() => {
                           showPromiseConfirm("deactivate");
-                          setAction("deactivate");
                         }}
                       >
                         Deactivate
@@ -526,10 +520,7 @@ export default function EmpDetail() {
                       block
                       type="primary"
                       onClick={() => {
-                        setAction("activate");
-                        // onFinish();
                         showPromiseConfirm("activate");
-                        // onFinish("activate");
                       }}
                     >
                       Activate
@@ -541,15 +532,7 @@ export default function EmpDetail() {
               <Row>
                 <Col offset={12} span={12}>
                   <Form.Item>
-                    <Button
-                      block
-                      htmlType="submit"
-                      type="primary"
-                      onClick={() => {
-                        setAction("create");
-                        // onFinish();
-                      }}
-                    >
+                    <Button block htmlType="submit" type="primary">
                       Create
                     </Button>
                   </Form.Item>
