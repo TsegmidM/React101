@@ -74,7 +74,16 @@ export default function EmpDetail() {
       onCancel() {},
     });
   };
+  const handleStatus = (type) => {
+    // type = activate | deactivate
+  }
   const onFinish = (values) => {
+    // values
+    if(employeeId) {
+      //put
+    } else {
+      ///post
+    }
     if (values === "deactivate" || values === "activate") {
       axios
         .create({
@@ -192,18 +201,18 @@ export default function EmpDetail() {
     <div>
       {contextHolder}
       <Tabs
-      type="card"
-      size="large"
-       defaultActiveKey="1"
-      //  onChange={onChange}
-       items={[
-         {
-           label: employeeId==='add' ? "Add New Employee" : "Employee Details",
-           key: '1',
-         },
-        ]}>
-
-      </Tabs>
+        type="card"
+        size="large"
+        defaultActiveKey="1"
+        //  onChange={onChange}
+        items={[
+          {
+            label:
+              employeeId === "add" ? "Add New Employee" : "Employee Details",
+            key: "1",
+          },
+        ]}
+      ></Tabs>
       <Row>
         <Col style={{ padding: "20px 20px" }}>
           <Button
@@ -512,21 +521,19 @@ export default function EmpDetail() {
               ) : (
                 <Row>
                   <Col offset={12} span={12}>
-                    <Form.Item>
-                      <Button
-                        disabled={false}
-                        block
-                        type="primary"
-                        onClick={() => {
-                          setAction("activate");
-                          // onFinish();
-                          showPromiseConfirm("activate");
-                          // onFinish("activate");
-                        }}
-                      >
-                        Activate
-                      </Button>
-                    </Form.Item>
+                    <Button
+                      disabled={false}
+                      block
+                      type="primary"
+                      onClick={() => {
+                        setAction("activate");
+                        // onFinish();
+                        showPromiseConfirm("activate");
+                        // onFinish("activate");
+                      }}
+                    >
+                      Activate
+                    </Button>
                   </Col>
                 </Row>
               )
