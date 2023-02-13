@@ -44,6 +44,7 @@ import EmpDetail from "./components/crud-emp/detail";
 // import TreeComponent from "./components/stateful-component-tree";
 import ThemeChanger from "./components/theme-changer";
 import KahootClone from "./components/Kahoot-like-game";
+import Interview2 from "./components/interview2";
 
 function App() {
   
@@ -79,6 +80,7 @@ function App() {
             <Route path="themechanger" element={<ThemeChanger/>} />
             <Route path="kahootclone" element={<KahootClone />} />
             
+            <Route path="Interview2" element={<Interview2/>} />
             
             <Route path="crudAPI" >
             <Route index element={<CrudEmpUsingApi/>}/>

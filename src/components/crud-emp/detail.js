@@ -88,10 +88,10 @@ export default function EmpDetail() {
   };
   const onFinish = (values) => {
     // values
-    if (employeeId !== 'add') {
+    if (employeeId !== "add") {
       //put
-      console.log(employeeId)
-        axios
+      console.log(employeeId);
+      axios
         .create({
           baseURL: "https://bark-backend.azurewebsites.net",
           headers: {
@@ -121,35 +121,35 @@ export default function EmpDetail() {
             "Succesfully updated the employee details!"
           );
         });
-    } else{
+    } else {
       ///post
       axios
-      .create({
-        baseURL: "https://bark-backend.azurewebsites.net",
-        headers: {
-          Authorization: APIKEY.bearer,
-        },
-      })
-      .post(`/api/employee`, {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        address1: values.address1,
-        address2: values?.address2,
-        city: values.city,
-        state: values.state,
-        zip: values.zip,
-        countryId: values.countryId === "Mongolia" ? 8 : 2,
-        phone: values.phone,
-        email: values.email,
-        role: values.role,
-        note: values.note,
-        locationId: 68,
-        password: values.password,
-      })
-      .then((res) => {
-        openNotification("topRight", "Succesfully created the account!");
-        console.log(res);
-      });
+        .create({
+          baseURL: "https://bark-backend.azurewebsites.net",
+          headers: {
+            Authorization: APIKEY.bearer,
+          },
+        })
+        .post(`/api/employee`, {
+          firstName: values.firstName,
+          lastName: values.lastName,
+          address1: values.address1,
+          address2: values?.address2,
+          city: values.city,
+          state: values.state,
+          zip: values.zip,
+          countryId: values.countryId === "Mongolia" ? 8 : 2,
+          phone: values.phone,
+          email: values.email,
+          role: values.role,
+          note: values.note,
+          locationId: 68,
+          password: values.password,
+        })
+        .then((res) => {
+          openNotification("topRight", "Succesfully created the account!");
+          console.log(res);
+        });
     }
   };
   useEffect(() => {
@@ -198,8 +198,7 @@ export default function EmpDetail() {
             key: "1",
           },
         ]}
-      >
-      </Tabs>
+      ></Tabs>
       <Row>
         <Col span={21} style={{ padding: "20px 20px" }}>
           <Button
@@ -211,16 +210,21 @@ export default function EmpDetail() {
             {"<  "}Back
           </Button>
         </Col>
-        <Col span={1} style={{ padding: "20px 20px" }}>
-          <Button
-            type="primary"
-            shape="round"
-            cursor="no"
-            style={{ background:isActive ? "green" : "grey", cursor:'text'}}
-          >
-            {isActive ? "Active" : "Inactive"}
-          </Button>
-        </Col>
+        {employeeId !== "add" && (
+          <Col span={1} style={{ padding: "20px 20px" }}>
+            <Button
+              type="primary"
+              shape="round"
+              cursor="no"
+              style={{
+                background: isActive ? "green" : "grey",
+                cursor: "text",
+              }}
+            >
+              {isActive ? "Active" : "Inactive"}
+            </Button>
+          </Col>
+        )}
       </Row>
       <Form
         disabled={!isActive}

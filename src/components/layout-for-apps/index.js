@@ -1,40 +1,42 @@
-import React from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { But, Button } from "antd";
+import React from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export default function PageSharedLayout() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', }}>
-      <div style={{ background: 'lightgray'}}>
-        <button onClick={() => navigate('')}>HOME</button>
-        <button onClick={() => navigate('todo-list')}>Todo List</button>
-        <button onClick={() => navigate('memory-game')}>Memory Game</button>
-        <button onClick={() => navigate('tictactoe')}>TIC TAC TOE</button>
-        <button onClick={() => navigate('live-clock')}>Live Clock</button>
-        <button onClick={() => navigate('airbnb')}>Airbnb Clone</button>
-        <button onClick={() => navigate('image-slider')}>Image Slider</button>
-        <button onClick={() => navigate('bmi-finder')}>BMI Finder</button>
-        <button onClick={() => navigate('color-picker')}>Color Picker</button>
-        <button onClick={() => navigate('employees')}>Employee List</button>
-        <button onClick={() => navigate('apiplayground')}>Api Playground</button>
-        <button onClick={() => navigate('chucknorrisjokes')}>Chuck Norris Jokes</button>
-        <button onClick={() => navigate('fetchgithub')}>Fetch Github</button>
-        <button onClick={() => navigate('fetchgithubfollowers')}>Fetch Github Followers</button>
-        <button onClick={() => navigate('tmdb-clone')}>Tmdb Clone</button>
-        <button onClick={() => navigate('themechanger')}>Theme Changer</button>
-        <button onClick={() => navigate('shopping-list')}>Shopping List</button>
-        <button onClick={() => navigate('kahootclone')}>Kahoot Clone</button>
-        <button onClick={() => navigate('crudapi')}>Crud Api</button>
-       
-
-        {/* <button onClick={() => navigate('/pages/50', { replace: true })}>
-          dynamic
-        </button> */}
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div className="flex m-2">
+        <Button onClick={() => navigate("")}>HOME</Button>
+        <Button onClick={() => navigate("todo-list")}>Todo List</Button>
+        <Button onClick={() => navigate("memory-game")}>Memory Game</Button>
+        <Button onClick={() => navigate("tictactoe")}>TIC TAC TOE</Button>
+        <Button onClick={() => navigate("live-clock")}>Live Clock</Button>
+        <Button onClick={() => navigate("airbnb")}>Airbnb Clone</Button>
+        <Button onClick={() => navigate("image-slider")}>Image Slider</Button>
+        <Button onClick={() => navigate("bmi-finder")}>BMI Finder</Button>
+        <Button onClick={() => navigate("color-picker")}>Color Picker</Button>
+        <Button onClick={() => navigate("employees")}>Employee List</Button>
+        <Button onClick={() => navigate("apiplayground")}>
+          Api Playground
+        </Button>
+        <Button onClick={() => navigate("chucknorrisjokes")}>
+          Chuck Norris Jokes
+        </Button>
+        <Button onClick={() => navigate("fetchgithub")}>Fetch Github</Button>
+        <Button onClick={() => navigate("fetchgithubfollowers")}>
+          Fetch Github Followers
+        </Button>
+        <Button onClick={() => navigate("tmdb-clone")}>Tmdb Clone</Button>
+        <Button onClick={() => navigate("themechanger")}>Theme Changer</Button>
+        <Button onClick={() => navigate("shopping-list")}>Shopping List</Button>
+        <Button onClick={() => navigate("kahootclone")}>Kahoot Clone</Button>
+        <Button onClick={() => navigate("crudapi")}>Crud Api</Button>
+        <Button onClick={() => navigate("Interview2")}>Interview2</Button>
       </div>
-   
-        <Outlet />
-      
+
+      <Outlet />
     </div>
-  )
+  );
 }
