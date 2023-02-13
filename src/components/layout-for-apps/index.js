@@ -7,7 +7,7 @@ export default function PageSharedLayout() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      <div className="flex m-2">
+      <div className="flex flex-wrap m-2">
         <Button onClick={() => navigate("")}>HOME</Button>
         <Button onClick={() => navigate("todo-list")}>Todo List</Button>
         <Button onClick={() => navigate("memory-game")}>Memory Game</Button>
