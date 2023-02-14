@@ -1,4 +1,4 @@
-import { But, Button } from "antd";
+import { Button } from "antd";
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
@@ -34,6 +34,8 @@ export default function PageSharedLayout() {
         <Button onClick={() => navigate("kahootclone")}>Kahoot Clone</Button>
         <Button onClick={() => navigate("crudapi")}>Crud Api</Button>
         <Button onClick={() => navigate("Interview2")}>Interview2</Button>
+        <Button onClick={() => navigate("Interview1")}>Interview1</Button>
+        
       </div>
 
       <Outlet />

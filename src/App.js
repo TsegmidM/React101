@@ -45,6 +45,7 @@ import EmpDetail from "./components/crud-emp/detail";
 import ThemeChanger from "./components/theme-changer";
 import KahootClone from "./components/Kahoot-like-game";
 import Interview2 from "./components/interview2";
+import Interview1 from "./components/interview1";
 
 function App() {
   
@@ -81,6 +82,7 @@ function App() {
             <Route path="kahootclone" element={<KahootClone />} />
             
             <Route path="Interview2" element={<Interview2/>} />
+            <Route path="Interview1" element={<Interview1/>} />
             
             <Route path="crudAPI" >
             <Route index element={<CrudEmpUsingApi/>}/>
