@@ -9,8 +9,8 @@ export default function Interview1Task2() {
     axios.get(apiEndpoint).then((res) => setData(res.data));
   }, []);
   return (
-    <div className="flex">
-      {data.map((info, idx) => {
+    <div className="flex flex-wrap">
+      {data.map((info) => {
         return <Task2Card key={info.id} info={info} />;
       })}
     </div>

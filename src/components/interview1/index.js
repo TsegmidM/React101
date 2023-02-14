@@ -8,7 +8,7 @@ export default function Interview1() {
   // implement the following Buttons
   // make sure change the sampleData with your state name
   return (
-    <div className="flex w-full justify-between">
+    <div className="flex w-full justify-between flex-wrap">
         <div>
       <pre>{JSON.stringify(data, null, 2)}</pre>
       <Button
