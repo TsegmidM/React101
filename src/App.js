@@ -46,9 +46,9 @@ import ThemeChanger from "./components/theme-changer";
 import KahootClone from "./components/Kahoot-like-game";
 import Interview2 from "./components/interview2";
 import Interview1 from "./components/interview1";
+import Interview3 from "./components/interview3";
 
 function App() {
-  
   return (
     <div className="App">
       <BrowserRouter>
@@ -69,35 +69,35 @@ function App() {
             <Route path="memory-game" element={<MemoryGame />} />
             <Route path="color-picker" element={<ColorPicker />} />
             <Route path="color-picker2" element={<ColorPicker2 />} />
-            <Route path="apiplayground" element={<ApiCallPlayground/>} />
-            <Route path="chucknorrisjokes" element={<ChuchNorrisJokes/>} />
-            <Route path="fetchgithub" element={<FetchGithub/>} />
-            <Route path="tmdb-clone" element={<MovieDetails/>} />
-            <Route path="coincap-clone" element={<CoinCapClone/>} />
-            <Route path="counter-usereducer" element={<CounterUseReducer/>} />
-            <Route path="shopping-list" element={<ShoppingList/>} />
+            <Route path="apiplayground" element={<ApiCallPlayground />} />
+            <Route path="chucknorrisjokes" element={<ChuchNorrisJokes />} />
+            <Route path="fetchgithub" element={<FetchGithub />} />
+            <Route path="tmdb-clone" element={<MovieDetails />} />
+            <Route path="coincap-clone" element={<CoinCapClone />} />
+            <Route path="counter-usereducer" element={<CounterUseReducer />} />
+            <Route path="shopping-list" element={<ShoppingList />} />
             {/* <Route path="tableexample" element={<TableExample/>} /> */}
             {/* <Route path="treecomponent" element={<TreeComponent/>} /> */}
-            <Route path="themechanger" element={<ThemeChanger/>} />
+            <Route path="themechanger" element={<ThemeChanger />} />
             <Route path="kahootclone" element={<KahootClone />} />
-            
-            <Route path="Interview2" element={<Interview2/>} />
-            <Route path="Interview1" element={<Interview1/>} />
-            
-            <Route path="crudAPI" >
-            <Route index element={<CrudEmpUsingApi/>}/>
-            <Route path=":employeeId" element={<EmpDetail/>}/>
-            {/* <Route path="add" element={<EmpDetail/>}/> */}
-            
-            
-            </Route>
-            
 
-            <Route path="fetchgithubfollowers" > 
-            <Route index element={<FetchGithubFollowers/>}/>
-            <Route path=":githubfollowersname" element={<FetchedFollowerDetails/>}/>
+            <Route path="Interview2" element={<Interview2 />} />
+            <Route path="Interview1" element={<Interview1 />} />
+            <Route path="Interview3" element={<Interview3 />} />
+            <Route path="crudAPI">
+              <Route index element={<CrudEmpUsingApi />} />
+              <Route path=":employeeId" element={<EmpDetail />} />
+              {/* <Route path="add" element={<EmpDetail/>}/> */}
             </Route>
-            
+
+            <Route path="fetchgithubfollowers">
+              <Route index element={<FetchGithubFollowers />} />
+              <Route
+                path=":githubfollowersname"
+                element={<FetchedFollowerDetails />}
+              />
+            </Route>
+
             <Route path="*" element={"404 Error"} />
           </Route>
         </Routes>
