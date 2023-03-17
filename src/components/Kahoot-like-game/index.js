@@ -1,13 +1,9 @@
-import { Button, Col, Row, theme } from "antd";
+import { Button, Col, Row } from "antd";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import "./style.css";
 import { ImCheckmark } from "react-icons/im";
-import { BiCameraMovie, BiMusic, BiWorld } from "react-icons/bi";
-import { MdSportsBasketball } from "react-icons/md";
-import { GiEgyptianSphinx } from "react-icons/gi";
-import { FaStar } from "react-icons/fa";
 export default function KahootClone() {
   const themeMusicRef = useRef();
   const correctMusicRef = useRef();
@@ -55,17 +51,15 @@ export default function KahootClone() {
       api: "https://opentdb.com/api.php?amount=10&category=26&difficulty=easy&type=multiple",
     },
   ];
-  // let themeMusic = new Audio('https://joeybabcock.me/blog/wp-content/uploads/2019/05/answer_30sec.mp3?_=12');
-
-  useEffect(()=>{
-    if(activeQuiz===10){
-      themeMusicRef.current.pause();
-      themeMusicRef.current.currentTime=0;
-    }
-  },[activeQuiz])
 
   useEffect(() => {
-   
+    if (activeQuiz === 10) {
+      themeMusicRef.current.pause();
+      themeMusicRef.current.currentTime = 0;
+    }
+  }, [activeQuiz]);
+
+  useEffect(() => {
     if (isAnswered === "green") {
       setScore((Date.now() - startTime) / 1000, true);
       themeMusicRef.current.pause();
@@ -77,21 +71,53 @@ export default function KahootClone() {
       themeMusicRef.current.currentTime = 0;
       setScore(0, false);
     } else {
-      // themeMusicRef.current.play();
       correctMusicRef.current.pause();
       correctMusicRef.current.currentTime = 0;
       inCorrectMusicRef.current.pause();
       inCorrectMusicRef.current.currentTime = 0;
     }
-  }, [isAnswered]);
-  useEffect(() => {
-    if (startGame) themeMusicRef.current.play();
+  }, [isAnswered,startTime]);
+  const fetchQuizes = useCallback(() => {
+    axios
+      .get(topic)
+      .then((res) => {
+        if (res.status === 200) {
+          setQuizes(
+            res.data.results.map((quiz, idx) => {
+              return {
+                id: idx + 1,
+                question: quiz.question,
+                answers: [
+                  { answer: quiz.correct_answer, isCorrect: true },
+                  ...quiz.incorrect_answers.map((incAnswer) => {
+                    return {
+                      answer: incAnswer,
+                      isCorrect: false,
+                    };
+                  }),
+                ].sort(() => (Math.random() > 0.5 ? 1 : -1)),
+              };
+            })
+          );
+        }
+      })
+      .catch((err) => {
+        if (err.status === 404) {
+          console.error("Either your endpoint is wrong or no data found!");
+        }
+      })
+      .finally((finallyP) => {
+        console.log("request is completed!", finallyP);
+      });
+  },[topic]);
 
-    fetchQuizes();
-  }, [startGame]);
-  // useEffect(()=>{
-  //   themeMusicRef.current.play();
-  // },[])
+  useEffect(() => {
+    if (startGame) {
+      themeMusicRef.current.play();
+      fetchQuizes();
+    }
+  }, [startGame,fetchQuizes]);
+  
   const renderTime = ({ remainingTime }) => {
     if (remainingTime === 0) {
       return <div className="timer">Too late...</div>;
@@ -124,39 +150,6 @@ export default function KahootClone() {
       });
     // console.log(points)
   };
-  const fetchQuizes = () => {
-    axios
-      .get(topic)
-      .then((res) => {
-        if (res.status === 200) {
-          setQuizes(
-            res.data.results.map((quiz, idx) => {
-              return {
-                id: idx + 1,
-                question: quiz.question,
-                answers: [
-                  { answer: quiz.correct_answer, isCorrect: true },
-                  ...quiz.incorrect_answers.map((incAnswer) => {
-                    return {
-                      answer: incAnswer,
-                      isCorrect: false,
-                    };
-                  }),
-                ].sort(() => (Math.random() > 0.5 ? 1 : -1)),
-              };
-            })
-          );
-        }
-      })
-      .catch((err) => {
-        if (err.status === 404) {
-          console.error("Either your endpoint is wrong or no data found!");
-        }
-      })
-      .finally((finallyP) => {
-        console.log("request is completed!", finallyP);
-      });
-  };
 
   return (
     <div
@@ -168,7 +161,7 @@ export default function KahootClone() {
       {!startGame ? (
         <div className="kahoot-homepage">
           <div className="kahoot-hp-header">
-            <span>Choose your trivia category</span>{" "}
+            <span>Choose your trivia category</span>
           </div>
           <div className="kahoot-hp-body">
             <Row gutter={[30, 30]}>
@@ -207,7 +200,8 @@ export default function KahootClone() {
                   className="kahoot-start-btn"
                   onClick={() => {
                     setActiveQuiz(0);
-                    fetchQuizes();
+                    setPoints({ totalPoint: 0, roundPoint: 0 });
+                  //  fetchQuizes();
                     setIsAnswered("");
                     setStartTime(Date.now());
                     setStartGame(false);
@@ -215,7 +209,10 @@ export default function KahootClone() {
                 >
                   Start
                 </button>
-                <img src="https://assets-cdn.kahoot.it/challenge/assets/podium-transparent.281c26f0.png" />
+                <img
+                  src="https://assets-cdn.kahoot.it/challenge/assets/podium-transparent.281c26f0.png"
+                  alt=""
+/>
               </div>
             </div>
           ) : (
@@ -234,20 +231,20 @@ export default function KahootClone() {
                     className="timeUp"
                     style={{
                       background: !isTimeUp
-                      ? isAnswered &&
-                        (points.roundPoint !== 0
-                          ? "rgb(102, 191, 57)"
-                          : "rgb(255, 51, 85)")
-                      : "rgba(143, 134, 134)",
+                        ? isAnswered &&
+                          (points.roundPoint !== 0
+                            ? "rgb(102, 191, 57)"
+                            : "rgb(255, 51, 85)")
+                        : "rgba(143, 134, 134)",
                     }}
                   >
                     <span className="timeup-text">
-                    {!isTimeUp
-                      ? isAnswered &&
-                        (points.roundPoint !== 0
-                          ? `You got ${points.roundPoint} points this round!`
-                          : "No one said it would be easy ;)")
-                      : "Hurry up next time"}
+                      {!isTimeUp
+                        ? isAnswered &&
+                          (points.roundPoint !== 0
+                            ? `You got ${points.roundPoint} points this round!`
+                            : "No one said it would be easy ;)")
+                        : "Hurry up next time"}
                     </span>
                   </div>
                 )}
@@ -265,35 +262,20 @@ export default function KahootClone() {
                       }}
                     >
                       {renderTime}
-                      {/* {renderTime} */}
-                      {/* {({ remainingTime }) => remainingTime} */}
                     </CountdownCircleTimer>
                   </div>
                 )}
                 {(isAnswered || isTimeUp) && (
                   <button
                     className="kahoot-next-btn"
-                    // disabled={isAnswered ? false : true}
                     onClick={() => {
-                      // if (activeQuiz < quizes.length - 1) {
                       setKey((currState) => currState + 1);
                       setIsAnswered(null);
                       setIsTimeUp(false);
                       setStartTime(Date.now());
                       setActiveQuiz((currState) => currState + 1);
                       themeMusicRef.current.play();
-                      // if(activeQuiz<9){
-                      //   themeMusicRef.current.pause();
-                      // themeMusicRef.current.currentTime = 0;
-                      // }
                       
-
-                      // } else {
-                      //   setActiveQuiz(0);
-                      //   fetchQuizes();
-                      //   setIsAnswered("");
-                      //   setStartTime(Date.now());
-                      // }
                     }}
                   >
                     NEXT
@@ -301,8 +283,6 @@ export default function KahootClone() {
                 )}
               </div>
               <div className="kahoot-answer-section">
-                {/* <Row></Row> */}
-
                 <Row gutter={[0, 10]}>
                   {quizes[activeQuiz]?.answers.map((answer, idx) => {
                     return (
@@ -321,7 +301,6 @@ export default function KahootClone() {
                             }}
                             onClick={() => {
                               setIsAnswered(answer.isCorrect ? "green" : "red");
-                              //themeMusicRef.current.pause();
                             }}
                           >
                             <span className="kahoot-answers-btn-text">
@@ -371,3 +350,4 @@ export default function KahootClone() {
     </div>
   );
 }
+ 

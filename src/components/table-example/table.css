@@ -1,0 +1,11 @@
+table {
+    border: 1px solid black;
+    /* width: 100vw;
+    height: 60vh; */
+}
+thead th, tfoot th {
+    border: 1px solid black;
+}
+tbody td {
+    border: 1px solid black;
+}

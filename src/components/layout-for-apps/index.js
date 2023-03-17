@@ -35,6 +35,7 @@ export default function PageSharedLayout() {
         <Button onClick={() => navigate("crudapi")}>Crud Api</Button>
         <Button onClick={() => navigate("Interview2")}>Interview2</Button>
         <Button onClick={() => navigate("Interview1")}>Interview1</Button>
+        <Button onClick={() => navigate("PracticeInt1")}>PracticeInt1</Button>
         
       </div>
 

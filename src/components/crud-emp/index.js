@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment/moment";
-import { useNavigate, useParams} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { Table, Button,Row, Col, Tabs } from "antd";
 import { APIKEY } from "./enum";
 export default function CrudEmpUsingApi() {
   const [employeeList, setEmployeeList] = useState([]);
   const navigate = useNavigate();
-  const { employeeId } = useParams();
 
   useEffect(() => {
     fetchEmployeesList();

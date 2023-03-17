@@ -46,6 +46,8 @@ import ThemeChanger from "./components/theme-changer";
 import KahootClone from "./components/Kahoot-like-game";
 import Interview2 from "./components/interview2";
 import Interview1 from "./components/interview1";
+import PracticeInt1 from "./components/Practice1";
+import CustomHookPlayground from "./components/custom-hook-playground";
 
 function App() {
   
@@ -83,6 +85,8 @@ function App() {
             
             <Route path="Interview2" element={<Interview2/>} />
             <Route path="Interview1" element={<Interview1/>} />
+            <Route path="PracticeInt1" element={<PracticeInt1/>} />
+            <Route path="CustomHookPlayground" element={<CustomHookPlayground/>} />
             
             <Route path="crudAPI" >
             <Route index element={<CrudEmpUsingApi/>}/>
@@ -92,12 +96,10 @@ function App() {
             
             </Route>
             
-
             <Route path="fetchgithubfollowers" > 
             <Route index element={<FetchGithubFollowers/>}/>
             <Route path=":githubfollowersname" element={<FetchedFollowerDetails/>}/>
             </Route>
-            
             <Route path="*" element={"404 Error"} />
           </Route>
         </Routes>
