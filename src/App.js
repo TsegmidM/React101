@@ -50,7 +50,6 @@ import PracticeInt1 from "./components/Practice1";
 import CustomHookPlayground from "./components/custom-hook-playground";
 
 function App() {
-  
   return (
     <div className="App">
       <BrowserRouter>
@@ -71,16 +70,16 @@ function App() {
             <Route path="memory-game" element={<MemoryGame />} />
             <Route path="color-picker" element={<ColorPicker />} />
             <Route path="color-picker2" element={<ColorPicker2 />} />
-            <Route path="apiplayground" element={<ApiCallPlayground/>} />
-            <Route path="chucknorrisjokes" element={<ChuchNorrisJokes/>} />
-            <Route path="fetchgithub" element={<FetchGithub/>} />
-            <Route path="tmdb-clone" element={<MovieDetails/>} />
-            <Route path="coincap-clone" element={<CoinCapClone/>} />
-            <Route path="counter-usereducer" element={<CounterUseReducer/>} />
-            <Route path="shopping-list" element={<ShoppingList/>} />
+            <Route path="apiplayground" element={<ApiCallPlayground />} />
+            <Route path="chucknorrisjokes" element={<ChuchNorrisJokes />} />
+            <Route path="fetchgithub" element={<FetchGithub />} />
+            <Route path="tmdb-clone" element={<MovieDetails />} />
+            <Route path="coincap-clone" element={<CoinCapClone />} />
+            <Route path="counter-usereducer" element={<CounterUseReducer />} />
+            <Route path="shopping-list" element={<ShoppingList />} />
             {/* <Route path="tableexample" element={<TableExample/>} /> */}
             {/* <Route path="treecomponent" element={<TreeComponent/>} /> */}
-            <Route path="themechanger" element={<ThemeChanger/>} />
+            <Route path="themechanger" element={<ThemeChanger />} />
             <Route path="kahootclone" element={<KahootClone />} />
             
             <Route path="Interview2" element={<Interview2/>} />
